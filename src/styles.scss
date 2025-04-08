@@ -1,4 +1,533 @@
-/* You can add global styles to this file, and also import other style files */
+// Variables de colores
+$primary-color: #2b4c7e;
+$secondary-color: #567ebb;
+$dark-color: #1f1f20;
+$medium-color: #606d80;
+$light-color: #dce0e6;
+$error-color: darkred;
+$warning-color: #ff9800;
 
+// Configuración compatible con Angular Material 19
+
+
+// Sobrescribe con tus colores
+.mat-primary {
+  background-color: #2b4c7e !important;
+}
+
+body {
+  background-color: #dce0e6;
+  color: #1f1f20;
+}
+
+// Estilos globales
+body {
+  background: #dce0e6;
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+// Estilos globales
+html, body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #dce0e6;
+}
+
+/* ============ LAYOUT PRINCIPAL ============ */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.content-area {
+  flex: 1;
+  padding: 2rem;
+  background-color: white;
+  margin-left: 250px; // Para el sidebar
+  min-height: calc(100vh - 64px); // Altura del header
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+  width: 250px;
+  background-color: $dark-color;
+  color: $light-color;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+  z-index: 1000;
+
+  &.collapsed {
+    width: 60px;
+    
+    .sidebar-item-text {
+      display: none;
+    }
+    
+    .sidebar-header {
+      justify-content: center;
+      
+      h3 {
+        display: none;
+      }
+    }
+  }
+
+  .sidebar-header {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba($light-color, 0.1);
+
+    h3 {
+      margin: 0;
+      margin-left: 1rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .sidebar-item {
+      padding: 0.75rem 1rem;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba($light-color, 0.1);
+      }
+
+      &.active {
+        background-color: rgba($primary-color, 0.2);
+        border-left: 3px solid $secondary-color;
+      }
+
+      .sidebar-icon {
+        margin-right: 1rem;
+        font-size: 1.2rem;
+        min-width: 20px;
+      }
+
+      .sidebar-item-text {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+/* ============ COMPONENTES PRINCIPALES CON CLASES ============ */
+// Botones
+.btn {
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.btn-primary {
+    background-color: $primary-color;
+    color: $light-color;
+
+    &:hover {
+      background-color: darken($primary-color, 5%);
+    }
+  }
+
+  &.btn-secondary {
+    background-color: $secondary-color;
+    color: $light-color;
+
+    &:hover {
+      background-color: darken($secondary-color, 5%);
+    }
+  }
+
+  &.btn-outline {
+    background-color: transparent;
+    border: 1px solid $primary-color;
+    color: $primary-color;
+
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+
+  &.btn-icon {
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+
+  &.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  &.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+// Inputs
+.input-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: $medium-color;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba($medium-color, 0.3);
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: white;
+
+    &:focus {
+      outline: none;
+      border-color: $secondary-color;
+      box-shadow: 0 0 0 2px rgba($secondary-color, 0.2);
+    }
+
+    &.input-error {
+      border-color: $error-color;
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba($warning-color, 0.2);
+      }
+    }
+  }
+
+  .input-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $medium-color;
+  }
+
+  .error-message {
+    color: $warning-color;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+}
+
+// Cards
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+
+  .card-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba($medium-color, 0.1);
+    background-color: rgba($light-color, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .card-title {
+      margin: 0;
+      color: $primary-color;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba($medium-color, 0.1);
+    background-color: rgba($light-color, 0.3);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+}
+
+// Alertas
+.alert {
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  .alert-icon {
+    font-size: 1.5rem;
+  }
+
+  &.alert-success {
+    background-color: rgba(#4caf50, 0.1);
+    color: #4caf50;
+    border-left: 4px solid #4caf50;
+  }
+
+  &.alert-error {
+    background-color: rgba($error-color, 0.1);
+    color: $error-color;
+    border-left: 4px solid $error-color;
+  }
+
+  &.alert-warning {
+    background-color: rgba(#ff9800, 0.1);
+    color: darken(#ff9800, 10%);
+    border-left: 4px solid #ff9800;
+  }
+
+  &.alert-info {
+    background-color: rgba($secondary-color, 0.1);
+    color: darken($secondary-color, 10%);
+    border-left: 4px solid $secondary-color;
+  }
+}
+
+// Badges
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+
+  &.badge-primary {
+    background-color: rgba($primary-color, 0.1);
+    color: $primary-color;
+  }
+
+  &.badge-secondary {
+    background-color: rgba($secondary-color, 0.1);
+    color: $secondary-color;
+  }
+
+  &.badge-success {
+    background-color: rgba(#4caf50, 0.1);
+    color: darken(#4caf50, 10%);
+  }
+
+  &.badge-error {
+    background-color: rgba(#f44336, 0.1);
+    color: darken(#f44336, 10%);
+  }
+}
+
+// Tablas
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  margin-bottom: 1.5rem;
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background-color: $primary-color;
+      color: $light-color;
+
+      th {
+        padding: 1rem;
+        text-align: left;
+        font-weight: 500;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid rgba($medium-color, 0.1);
+
+        &:nth-child(even) {
+          background-color: rgba($light-color, 0.3);
+        }
+
+        &:hover {
+          background-color: rgba($secondary-color, 0.05);
+        }
+
+        td {
+          padding: 1rem;
+          color: $dark-color;
+        }
+      }
+    }
+  }
+}
+
+// Modal
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($dark-color, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+
+  .modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba($medium-color, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .modal-title {
+      margin: 0;
+      color: $primary-color;
+      font-size: 1.5rem;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: $medium-color;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: $dark-color;
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  .modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba($medium-color, 0.1);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+}
+
+/* ============ UTILIDADES ============ */
+.text-primary { color: $primary-color !important; }
+.text-secondary { color: $secondary-color !important; }
+.text-dark { color: $dark-color !important; }
+.text-medium { color: $medium-color !important; }
+.text-light { color: $light-color !important; }
+
+.bg-primary { background-color: $primary-color !important; }
+.bg-secondary { background-color: $secondary-color !important; }
+.bg-dark { background-color: $dark-color !important; }
+.bg-medium { background-color: $medium-color !important; }
+.bg-light { background-color: $light-color !important; }
+
+.shadow-sm { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important; }
+.shadow { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important; }
+.shadow-lg { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important; }
+
+.rounded { border-radius: 4px !important; }
+.rounded-lg { border-radius: 8px !important; }
+.rounded-full { border-radius: 9999px !important; }
+
+.p-1 { padding: 0.5rem !important; }
+.p-2 { padding: 1rem !important; }
+.p-3 { padding: 1.5rem !important; }
+.p-4 { padding: 2rem !important; }
+
+.m-1 { margin: 0.5rem !important; }
+.m-2 { margin: 1rem !important; }
+.m-3 { margin: 1.5rem !important; }
+.m-4 { margin: 2rem !important; }
+
+.flex { display: flex !important; }
+.flex-col { flex-direction: column !important; }
+.items-center { align-items: center !important; }
+.justify-center { justify-content: center !important; }
+.gap-1 { gap: 0.5rem !important; }
+.gap-2 { gap: 1rem !important; }
+
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+.text-uppercase { text-transform: uppercase !important; }
+
+.w-full { width: 100% !important; }
+.h-full { height: 100% !important; }
+
+/* ============ RESPONSIVIDAD ============ */
+@media (max-width: 768px) {
+  .content-area {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  .modal {
+    width: 95%;
+  }
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
