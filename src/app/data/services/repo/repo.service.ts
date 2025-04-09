@@ -1,0 +1,40 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
+import { Response } from '../../models/response/response.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export abstract class RepoService<T> {
+  private readonly URL_API = environment.URL_API;
+  protected fullUrl: string;
+
+  constructor(private httpClient: HttpClient, path: string) {
+    this.fullUrl = `${this.URL_API}/${path}`;
+  }
+
+  getAll() {
+    return this.httpClient.get<Response<T>>(this.fullUrl);
+  }
+
+  getById(id: string | number) {
+    return this.httpClient.get<Response<T>>(`${this.fullUrl}/${id}`);
+  }
+
+  create(item: T) {
+    return this.httpClient.post<Response<T>>(this.fullUrl, item);
+  }
+
+  update(id: string | number, item: T) {
+    return this.httpClient.put<Response<T>>(`${this.fullUrl}/${id}`, item);
+  }
+
+  delete(id: string | number) {
+    return this.httpClient.delete<Response<never>>(`${this.fullUrl}/${id}`);
+  }
+
+  softDelete(id: string | number) {
+    return this.httpClient.patch<Response<never>>(`${this.fullUrl}/${id}`, null);
+  }
+}
