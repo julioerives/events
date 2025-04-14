@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../data/services/auth/auth.service';
@@ -14,8 +14,8 @@ import { getErrorClass } from '../../../helpers/formFunctions';
     ReactiveFormsModule
   ]
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class LoginComponent  {
+  form!: FormGroup;
   public loading = false;
   private isSend = false;
 
@@ -24,17 +24,20 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router
   ) {
-    this.loginForm = this.fb.group({
+    this.buildForm()
+  }
+
+  buildForm(){
+    this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   onSubmit() {
-    if (this.loginForm.invalid) return;
-    
+    if (this.form.invalid) return;
     this.loading = true;
-    this.authService.login(this.loginForm.value).subscribe({
+    this.authService.login(this.form.value).subscribe({
       next: (res) => {
         this.loading = false;
         this.router.navigate(['/dashboard']);
@@ -47,9 +50,6 @@ export class LoginComponent {
   }
 
   getErrorClass(control: string){
-    return getErrorClass(control, this.loginForm, this.isSend)
+    return getErrorClass(control, this.form, this.isSend)
   }
-
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
 }
