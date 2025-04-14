@@ -10,7 +10,7 @@ export abstract class RepoService<T> {
   private readonly URL_API = environment.URL_API;
   protected fullUrl: string;
 
-  constructor(private httpClient: HttpClient, path: string) {
+  constructor(public httpClient: HttpClient, path: string) {
     this.fullUrl = `${this.URL_API}/${path}`;
   }
 

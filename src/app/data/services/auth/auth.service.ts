@@ -12,6 +12,6 @@ export class AuthService extends RepoService<Login>{
     super(client, 'auth');
    }
   login(login: Login) {
-    return this.client.post<Login>(`${this.fullUrl}/login`, login);
+    return this.httpClient.post<Login>(`${this.fullUrl}/login`, login);
   }
 }
