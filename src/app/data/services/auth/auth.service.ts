@@ -14,7 +14,7 @@ export class AuthService extends RepoService<Login>{
     super(client, 'auth');
    }
   login(login: Login):Observable<Response<Login>> {
-    return this.httpClient.post<Response<Login>>(`${this.fullUrl}/login`, login);
+    return this.httpClient.post<Response<Login>>(`${this.fullUrl}/`, login);
   }
   
   register(data: Login):Observable<Response<Login>>{
