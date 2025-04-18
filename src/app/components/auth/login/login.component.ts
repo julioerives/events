@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../data/services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { getErrorClass } from '../../../helpers/formFunctions';
+import { LoadingService } from '../../../core/loading/loading.service';
+import { finalize, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,21 +16,25 @@ import { getErrorClass } from '../../../helpers/formFunctions';
     ReactiveFormsModule
   ]
 })
-export class LoginComponent  {
+export class LoginComponent  implements OnInit{
   form!: FormGroup;
   public loading = false;
   private isSend = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {
-    this.buildForm()
+  private destroy$ = new Subject<void>();
+
+
+  private _fb: FormBuilder = inject(FormBuilder);
+  private _authService: AuthService = inject(AuthService);
+  private _router: Router = inject(Router);
+  private _loadingService: LoadingService = inject(LoadingService);
+
+  ngOnInit(): void {
+      this.buildForm
   }
 
   buildForm(){
-    this.form = this.fb.group({
+    this.form = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
       password_hash: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -37,10 +43,17 @@ export class LoginComponent  {
   onSubmit() {
     if (this.form.invalid) return;
     this.loading = true;
-    this.authService.login(this.form.value).subscribe({
+    this._loadingService.showLoading();
+    this._authService.login(this.form.value)
+    .pipe(
+      takeUntil(this.destroy$),
+      finalize(()=>{
+        this._loadingService.hideLoading()
+      }))
+    .subscribe({
       next: (res) => {
         this.loading = false;
-        this.router.navigate(['/dashboard']);
+        this._router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.loading = false;
