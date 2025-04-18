@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../data/services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { getErrorClass } from '../../../helpers/formFunctions';
@@ -13,7 +13,8 @@ import { finalize, Subject, takeUntil } from 'rxjs';
   styleUrls: ['./login.component.scss'],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ]
 })
 export class LoginComponent  implements OnInit{

@@ -6,13 +6,14 @@ import { AuthService } from '../../../data/services/auth/auth.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { Login } from '../../../data/models/auth/auth.model';
 import { LoadingService } from '../../../core/loading/loading.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
