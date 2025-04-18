@@ -30,7 +30,7 @@ export class LoginComponent  implements OnInit{
   private _loadingService: LoadingService = inject(LoadingService);
 
   ngOnInit(): void {
-      this.buildForm
+      this.buildForm()
   }
 
   buildForm(){
