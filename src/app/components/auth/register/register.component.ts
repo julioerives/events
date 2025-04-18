@@ -31,7 +31,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
   private _loadingService: LoadingService = inject(LoadingService);
 
   ngOnInit(): void {
-      this.buildForm()
+    this.buildForm()
   }
 
   ngOnDestroy(): void {
@@ -58,20 +58,21 @@ export class RegisterComponent implements OnDestroy, OnInit {
     this._loadingService.showLoading();
     const data = this.form.value as Login;
     this._authService.register(data)
-    .pipe(
-      takeUntil(this.destroy$),
-      finalize(() => {
-        this._loadingService.hideLoading()
-      }))
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => {
+          this._loadingService.hideLoading()
+        }))
       .subscribe(
-      {
-        next: (d) => {
-          alert(d.message)
-        },
-        error: (e) => {
+        {
+          next: (d) => {
+            alert(d.message)
+            this._router.navigate(['/dashboard']);
+          },
+          error: (e) => {
 
+          }
         }
-      }
-    )
+      )
   }
 }

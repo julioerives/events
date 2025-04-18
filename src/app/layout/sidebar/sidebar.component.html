@@ -1,0 +1,43 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+    <div class="sidebar-header">
+        @if (!isCollapsed) {
+        <h3>Mi Aplicación</h3>
+        }
+        <button class="toggle-btn" (click)="toggleSidebar()">
+            {{ isCollapsed ? '☰' : '◄' }}
+        </button>
+    </div>
+
+    <ul class="sidebar-menu">
+        @for (item of menuItems; track item.text) {
+        <li [class.active]="item.active" [class.has-badge]="item.badge" (click)="activateItem(item)">
+            <mat-icon class="menu-icon">{{ item.icon }}</mat-icon>
+            @if (!isCollapsed) {
+            <span class="menu-text">{{ item.text }}</span>
+            }
+            @if (!isCollapsed && item.badge) {
+            <span class="badge">{{ item.badge }}</span>
+            }
+        </li>
+        }
+    </ul>
+
+    @if (!isCollapsed) {
+    <div class="sidebar-footer">
+        <div class="user-info">
+            <p>Usuario Actual</p>
+            <small>Administrador</small>
+        </div>
+        @if (!isCollapsed) {
+        <button class="logout-btn">
+            <span class="material-icons">logout</span>
+            <span>Cerrar sesión</span>
+        </button>
+        }
+
+    </div>
+    }
+</div>
+<div class="routerOutletCont" (click)="onContentClick()">
+    <router-outlet></router-outlet>
+</div>
