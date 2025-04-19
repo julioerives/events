@@ -4,9 +4,12 @@ import { RegisterComponent } from './register/register.component';
 
 export const authRoutes: Routes = [
     {
-        path: '', component: LoginComponent
+        path: 'login', component: LoginComponent
     },
     {
         path:'singIn', component: RegisterComponent
+    },
+    {
+        path: '', redirectTo: 'login', pathMatch: 'full'
     }
 ];
