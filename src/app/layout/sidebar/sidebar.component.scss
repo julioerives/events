@@ -9,6 +9,8 @@
     background-color: var(--dark-color);
     color: var(--light-color);
     display: flex;
+    top: 0;
+    left: 0;
     flex-direction: column;
     transition: all 0.3s ease;
     position: absolute;
@@ -104,8 +106,8 @@
       }
   
       &.active {
-        background-color: rgba(43, 76, 126, 0.2);
-        border-left: 3px solid var(--secondary-color);
+        background-color: rgba(var(--secondary-color), 0.5);
+        border-left: 3px solid var(--primary-color);
       }
   
       &.has-badge::after {
@@ -196,7 +198,8 @@
   
 
   .routerOutletCont{
-    width: 100%;
+    width: calc(100% - 70px);
+    margin-left: 70px;
     height: 100vh;
     background-color: var(--light-color);
   }
