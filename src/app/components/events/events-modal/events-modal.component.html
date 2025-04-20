@@ -21,7 +21,6 @@
       }
     </div>
 
-    <!-- Input de fecha de fin con estilo personalizado -->
     <div class="input-group">
       <label>Fecha de fin</label>
       <div class="custom-date-input">
@@ -45,9 +44,9 @@
     </div>
 
     <div class="input-group">
-      <label for="email">Correo electrónico</label>
-      <input type="email" id="email" formControlName="email" placeholder="tucorreo@ejemplo.com" class="input"
-        [ngClass]="getErrorClass('email')">
+      <label for="email">Tiempo de notificacion</label>
+      <input type="number" id="minutesAdvice" formControlName="minutesAdvice" placeholder="15" class="input"
+        [ngClass]="getErrorClass('minutesAdvice')">
     </div>
 
     <div class="slideCont">
