@@ -1,0 +1,160 @@
+
+:host {
+  display: block;
+  max-width: 600px;
+  width: 100%;
+}
+
+.modal-title {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.modal-content {
+  padding: 1.5rem;
+}
+
+.event-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  mat-slide-toggle {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+}
+
+.modal-actions {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(var(--medium-color), 0.1);
+  gap: 0.5rem;
+}
+
+/* Ajustes para los campos de fecha */
+.mat-datepicker-content {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los errores */
+mat-error {
+  font-size: 0.8rem;
+  color: var(--error-color);
+  margin-top: 0.25rem;
+}
+.slideCont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+/* Estilos para los inputs de fecha personalizados */
+.custom-date-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+  
+    .input {
+      padding-right: 40px; /* Espacio para el ícono */
+      width: 100%;
+    }
+  
+    .datepicker-toggle {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--medium-color);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      mat-icon {
+        font-size: 1.2rem;
+      }
+  
+      &:hover {
+        color: var(--secondary-color);
+      }
+    }
+  }
+  
+  /* Estilos para los errores (consistentes con tu diseño) */
+  .error-message {
+    color: var(--error-color);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Estilos para los slide toggles */
+  .slideCont {
+    margin: 1rem 0;
+    
+    .input-group {
+      margin-bottom: 1rem;
+    }
+  
+    mat-slide-toggle {
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+  }
+  
+  /* Asegurar que los inputs tengan el mismo estilo */
+  .input-group {
+    margin-bottom: 1rem;
+  
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--medium-color);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+  
+    .input {
+      padding: 0.7rem;
+      border: 1px solid #a1adb6a1;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background-color: white;
+      color: var(--dark-color);
+      width: 100%;
+  
+      &:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 1px var(--secondary-color);
+      }
+  
+      &.input-error {
+        border-color: var(--error-color);
+  
+        &:focus {
+          box-shadow: 0 0 0 1px var(--error-color);
+        }
+      }
+    }
+  }
