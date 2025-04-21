@@ -5,7 +5,7 @@ import { EventsComponent } from '../../components/events/events.component';
 
 export const routes: Routes = [
     {
-        path:'', component:SidebarComponent, canActivateChild:[authGuard], children:[
+        path:'', component:SidebarComponent, children:[
             {
                 path: 'events', component: EventsComponent
             },

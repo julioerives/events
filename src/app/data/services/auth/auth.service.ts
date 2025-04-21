@@ -24,10 +24,12 @@ export class AuthService extends RepoService<Login>{
   }
 
   verifyToken() {
-    return this.httpClient.get<{ isValid: boolean }>(`${this.fullUrl}/verify`).pipe(
+    return this.httpClient.get<{ isValid: boolean }>(`${this.fullUrl}/verify`,{
+      withCredentials: true,
+    }).pipe(
       tap((response) => {
         this.isAuthenticated$.next(response.isValid);
-      })
+      },)
     );
   }
 }

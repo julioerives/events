@@ -23,7 +23,9 @@ export abstract class RepoService<T> {
   }
 
   create(item: T) {
-    return this.httpClient.post<Response<T>>(this.fullUrl, item);
+    return this.httpClient.post<Response<T>>(this.fullUrl, item, {
+      withCredentials: true
+    });
   }
 
   update(id: string | number, item: T) {

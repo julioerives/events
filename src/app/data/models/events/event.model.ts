@@ -3,6 +3,6 @@ export interface Event {
     startDate: Date;
     endDate: Date;
     phoneNotifications: boolean;
-    webNotificacions: boolean;
+    webNotifications: boolean;
     minutesAdvice: number;
   }
