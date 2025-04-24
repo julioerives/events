@@ -13,7 +13,7 @@ export const authGuard: CanActivateChildFn = (childRoute, state) => {
 
   return authService.verifyToken().pipe(
     map((isValid) => {
-      if (isValid) {
+      if (isValid.isValid) {
         return true;
       } else {
         router.navigate(['/login']);
