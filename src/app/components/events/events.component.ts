@@ -5,6 +5,7 @@ import { EventsModalComponent } from './events-modal/events-modal.component';
 import { Event } from '../../data/models/events/event.model';
 import { MatIconModule } from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-events',
@@ -12,7 +13,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     CommonModule,
     MatDialogModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonModule
   ],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss'
