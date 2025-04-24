@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Inject } from '@angular/core';
+import { Component, inject, Inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EventsModalComponent } from './events-modal/events-modal.component';
 import { Event } from '../../data/models/events/event.model';
 import { MatIconModule } from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { EventsService } from '../../data/services/events/events.service';
+import { finalize, Subject, takeUntil } from 'rxjs';
+import { EventCardComponent } from './event-card/event-card.component';
 
 @Component({
   selector: 'app-events',
@@ -14,34 +17,49 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatIconModule,
     MatTooltipModule,
-    MatButtonModule
+    MatButtonModule,
+    EventCardComponent
   ],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss'
 })
-export class EventsComponent {
+export class EventsComponent implements OnInit,OnDestroy{
   private _dialog: MatDialog = inject(MatDialog);
-  event: Event = {
-    eventName: 'Sample Event',
-    eventId: 12345,
-    startDate: new Date('2025-05-15T09:00:00'),
-    endDate: new Date('2025-05-15T11:30:00'),
-    phoneNotifications: true,
-    webNotifications: false,
-    minutesAdvice: 30
-  };
+  private _eventService: EventsService = inject(EventsService);
+  public events = signal<Event[]>([]);
+  isLoading: boolean = false;
+
+  private destroy$: Subject<void> = new Subject<void>();
+
+  ngOnInit(): void {
+    this.getEvents();
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  getEvents(): void {
+    this.isLoading = true;
+    this._eventService.getAllByPage(0, 50).pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.isLoading = false)
+    ).subscribe({
+      next: (res) => {
+        this.events.set(res.data.content);
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
   openDialog(): void {
     const dialogRef = this._dialog.open(EventsModalComponent, {
       width: '600px',
       data: {}
     });
 
-  }
-
-  getTimeIndicator() {
-    const now = new Date();
-    if (this.event.endDate < now) return '#9E9E9E';
-    if (this.event.startDate > now) return '#4CAF50';
-    return '#FF9800';
   }
 }

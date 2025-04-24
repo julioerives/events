@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { Response } from '../../models/response/response.model';
+import { PaginatorResponse, Response } from '../../models/response/response.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,23 @@ export abstract class RepoService<T> {
 
   softDelete(id: string | number) {
     return this.httpClient.patch<Response<never>>(`${this.fullUrl}/${id}`, null);
+  }
+
+  getAllByPage(page: number, size: number):Observable<Response<PaginatorResponse<T>>> {
+    return this.httpClient.get<Response<PaginatorResponse<T>>>(`${this.fullUrl}`, {
+      params: {
+        page,
+        size
+      }
+    });
+  }
+  getAllByPageAndFilter(page: number, size: number, name: string) {
+    return this.httpClient.get<Response<T[]>>(`${this.fullUrl}`, {
+      params: {
+        page,
+        size,
+        name
+      }
+    });
   }
 }
