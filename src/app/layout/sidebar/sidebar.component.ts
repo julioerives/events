@@ -26,7 +26,7 @@ export class SidebarComponent {
   isSidebarVisible = true;
 
   menuItems: MenuItem[] = [
-    { text: 'Events', icon: 'notifications', active: false, badge: null },
+    { text: 'Events', icon: 'notifications', active: true, badge: null },
   ];
 
   toggleSidebar() {
