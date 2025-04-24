@@ -1,3 +1,48 @@
 <button class="btn" (click)="openDialog()">
     Abrir modal
 </button>
+<div class="event-card-container">
+    <div class="card event-card">
+      <div class="card-header event-header">
+        <h3 class="card-title event-title">Detalles del Evento</h3>
+        <span class="event-id" *ngIf="event.eventId">#{{event.eventId}}</span>
+      </div>
+      
+      <div class="card-body event-body">
+        <div class="event-dates">
+          <div class="date-group">
+            <span class="date-label">Inicio</span>
+            <span class="date-value">{{event.startDate | date:'medium'}}</span>
+          </div>
+          <div class="date-group">
+            <span class="date-label">Fin</span>
+            <span class="date-value">{{event.endDate | date:'medium'}}</span>
+          </div>
+        </div>
+        
+        <div class="event-notifications">
+          <div class="notification-item" [class.active]="event.phoneNotifications">
+            <mat-icon>notifications</mat-icon>
+            <span>Notificaciones por teléfono</span>
+            <span class="notification-status">{{event.phoneNotifications ? 'Activado' : 'Desactivado'}}</span>
+          </div>
+          
+          <div class="notification-item" [class.active]="event.webNotifications">
+            <mat-icon>public</mat-icon>
+            <span>Notificaciones web</span>
+            <span class="notification-status">{{event.webNotifications ? 'Activado' : 'Desactivado'}}</span>
+          </div>
+          
+          <div class="advice-time">
+            <mat-icon>access_alarm</mat-icon>
+            <span>Notificar con {{event.minutesAdvice}} minutos de anticipación</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-footer event-actions">
+        <button class="btn btn-secondary btn-sm">Editar</button>
+        <button class="btn btn-outline btn-sm">Eliminar</button>
+      </div>
+    </div>
+  </div>
