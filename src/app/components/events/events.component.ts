@@ -4,13 +4,15 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EventsModalComponent } from './events-modal/events-modal.component';
 import { Event } from '../../data/models/events/event.model';
 import { MatIconModule } from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-events',
   imports: [
     CommonModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ],
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss'
@@ -31,5 +33,12 @@ export class EventsComponent {
       data: {}
     });
 
+  }
+
+  getTimeIndicator() {
+    const now = new Date();
+    if (this.event.endDate < now) return '#9E9E9E';
+    if (this.event.startDate > now) return '#4CAF50';
+    return '#FF9800';
   }
 }

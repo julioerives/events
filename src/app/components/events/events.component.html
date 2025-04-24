@@ -1,48 +1,44 @@
-<button class="btn" (click)="openDialog()">
-    Abrir modal
-</button>
-<div class="event-card-container">
-    <div class="card event-card">
-      <div class="card-header event-header">
-        <h3 class="card-title event-title">Detalles del Evento</h3>
-        <span class="event-id" *ngIf="event.eventId">#{{event.eventId}}</span>
+<div class="card event-card elegant">
+  <div class="event-time-indicator" [style.background]="getTimeIndicator()"></div>
+  
+  <div class="event-content">
+    <div class="event-header">
+      <div class="event-date">
+        <div class="event-day">{{event.startDate | date:'d'}}</div>
+        <div class="event-month">{{event.startDate | date:'MMM'}}</div>
       </div>
       
-      <div class="card-body event-body">
-        <div class="event-dates">
-          <div class="date-group">
-            <span class="date-label">Inicio</span>
-            <span class="date-value">{{event.startDate | date:'medium'}}</span>
-          </div>
-          <div class="date-group">
-            <span class="date-label">Fin</span>
-            <span class="date-value">{{event.endDate | date:'medium'}}</span>
-          </div>
+      <div class="event-info">
+        <h3 class="event-title">{{'Evento sin título'}}</h3>
+        <div class="event-time">
+          <mat-icon>schedule</mat-icon>
+          <span>{{event.startDate | date:'shortTime'}} - {{event.endDate | date:'shortTime'}}</span>
         </div>
-        
-        <div class="event-notifications">
-          <div class="notification-item" [class.active]="event.phoneNotifications">
-            <mat-icon>notifications</mat-icon>
-            <span>Notificaciones por teléfono</span>
-            <span class="notification-status">{{event.phoneNotifications ? 'Activado' : 'Desactivado'}}</span>
-          </div>
-          
-          <div class="notification-item" [class.active]="event.webNotifications">
-            <mat-icon>public</mat-icon>
-            <span>Notificaciones web</span>
-            <span class="notification-status">{{event.webNotifications ? 'Activado' : 'Desactivado'}}</span>
-          </div>
-          
-          <div class="advice-time">
-            <mat-icon>access_alarm</mat-icon>
-            <span>Notificar con {{event.minutesAdvice}} minutos de anticipación</span>
-          </div>
+      </div>
+    </div>
+    
+    <div class="event-details">
+      <div class="notification-status">
+        <div class="status-bubble phone" [class.active]="event.phoneNotifications">
+          <mat-icon>notifications</mat-icon>
+        </div>
+        <div class="status-bubble web" [class.active]="event.webNotifications">
+          <mat-icon>public</mat-icon>
+        </div>
+        <div class="reminder-badge">
+          <mat-icon>notifications_active</mat-icon>
+          <span>{{event.minutesAdvice}} min antes</span>
         </div>
       </div>
       
-      <div class="card-footer event-actions">
-        <button class="btn btn-secondary btn-sm">Editar</button>
-        <button class="btn btn-outline btn-sm">Eliminar</button>
+      <div class="event-actions">
+        <button class="icon-btn edit" matTooltip="Editar evento">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button class="icon-btn delete" matTooltip="Eliminar evento">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
     </div>
   </div>
+</div>
