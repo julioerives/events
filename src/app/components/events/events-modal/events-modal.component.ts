@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { getErrorClass } from '../../../helpers/formFunctions';
+import { getErrorClass, getValidControl } from '../../../helpers/formFunctions';
 import { MatIconModule } from '@angular/material/icon';
 import { Event } from '../../../data/models/events/event.model';
 import { EventsService } from '../../../data/services/events/events.service';
@@ -59,6 +59,7 @@ export class EventsModalComponent implements OnInit, OnDestroy {
     this.isEditMode = !!this.data?.eventId;
 
     this.form = this.fb.group({
+      eventName: [this.data?.eventName || '', [Validators.required]],
       startDate: [this.data?.startDate || '', [Validators.required]],
       endDate: [this.data?.endDate || '', [Validators.required]],
       phoneNotifications: [this.data?.phoneNotifications || false, [Validators.required]],
@@ -96,6 +97,10 @@ export class EventsModalComponent implements OnInit, OnDestroy {
 
   getErrorClass(control: string) {
     return getErrorClass(control, this.form, this.isSend)
+  }
+
+  getValidControl(control: string): boolean {
+    return getValidControl(control, this.form, this.isSend)
   }
 
   get minEndDate(): Date {

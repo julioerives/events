@@ -9,7 +9,7 @@ export const getErrorClass = (control: string, formGroup: FormGroup, isSend: boo
         inputError: getValidControl(control, formGroup, isSend)
     }
 }
-const getValidControl = (control: string, fb: FormGroup, isSend: boolean): boolean => {
+export const getValidControl = (control: string, fb: FormGroup, isSend: boolean): boolean => {
     const inputValid = fb.get(control);
     return ((inputValid?.touched || inputValid?.dirty || isSend) && inputValid?.invalid) || false;
 }

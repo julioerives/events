@@ -5,6 +5,16 @@
 <mat-dialog-content class="modal-content">
   <form [formGroup]="form" class="event-form">
     <div class="input-group">
+      <label for="eventName">Nombre del evento</label>
+      <input type="text" id="eventName" formControlName="eventName" placeholder="Nombre" class="input"
+        [ngClass]="getErrorClass('eventName')">
+      @if (getValidControl('eventName')) {
+      <div class="error-message">
+        El nombre del evento es obligatorio
+      </div>
+      }
+    </div>
+    <div class="input-group">
       <label>Fecha de inicio</label>
       <div class="custom-date-input">
         <input matInput [matDatepicker]="startPicker" formControlName="startDate" required class="input"

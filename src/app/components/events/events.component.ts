@@ -22,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class EventsComponent {
   private _dialog: MatDialog = inject(MatDialog);
   event: Event = {
+    eventName: 'Sample Event',
     eventId: 12345,
     startDate: new Date('2025-05-15T09:00:00'),
     endDate: new Date('2025-05-15T11:30:00'),
