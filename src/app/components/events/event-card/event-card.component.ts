@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Event } from '../../../data/models/events/event.model';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,11 +15,16 @@ import { MatIconModule } from '@angular/material/icon';
 export class EventCardComponent {
   @Input() event!: Event;
   @Input() showActions: boolean = true;
+  @Output() idEvent: EventEmitter<number> = new EventEmitter<number>();
 
   getTimeIndicator() {
     const now = new Date();
     if (this.event.endDate < now) return '#9E9E9E';
     if (this.event.startDate > now) return '#4CAF50';
     return '#FF9800';
+  }
+
+  deleteEvent(){
+    this.idEvent.emit(this.event.eventId);
   }
 }

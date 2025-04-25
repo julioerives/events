@@ -55,6 +55,24 @@ export class EventsComponent implements OnInit,OnDestroy{
     });
   }
 
+  deleteEvent(id: number): void {
+    this.isLoading = true;
+    this._eventService.delete(id).pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.isLoading = false)
+    ).subscribe({
+      next: (data) => {
+        alert(data.message);
+        this.getEvents();
+      },
+      error: (err) => {
+        this.isLoading = false;
+        alert(err.error.message);
+      }
+    });
+  }
+
+
   openDialog(): void {
     const dialogRef = this._dialog.open(EventsModalComponent, {
       width: '600px',

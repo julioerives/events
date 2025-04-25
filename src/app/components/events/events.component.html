@@ -8,7 +8,7 @@
   </div>
   <div class="events-container">
     @for (item of events(); track $index) {
-      <app-event-card [event]="item" [showActions]="true"></app-event-card>
+      <app-event-card [event]="item" (idEvent)="deleteEvent($event)" [showActions]="true"></app-event-card>
     }
   </div>
 </div>
