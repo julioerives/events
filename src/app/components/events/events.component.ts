@@ -10,6 +10,7 @@ import { EventsService } from '../../data/services/events/events.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 import { AlertsService } from '../../core/alerts/alerts.service';
+import { DialogConfirmComponent } from '../dialogs/dialog-confirm/dialog-confirm.component';
 
 @Component({
   selector: 'app-events',
@@ -58,18 +59,40 @@ export class EventsComponent implements OnInit,OnDestroy{
   }
 
   deleteEvent(id: number): void {
-    this.isLoading = true;
-    this._eventService.delete(id).pipe(
-      takeUntil(this.destroy$),
-      finalize(() => this.isLoading = false)
-    ).subscribe({
-      next: (data) => {
-        this._alertService.success(data.message);
-        this.getEvents();
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this._alertService.error(err.error.message);
+      this.isLoading = true;
+      this._eventService.delete(id).pipe(
+        takeUntil(this.destroy$),
+        finalize(() => this.isLoading = false)
+      ).subscribe({
+        next: (data) => {
+          this._alertService.success(data.message);
+          this.getEvents();
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this._alertService.error(err.error.message);
+        }
+      });
+  }
+
+  deleteEventConfirm(id: number): void {
+    this._dialog.open(DialogConfirmComponent, {
+      width: '480px',
+      disableClose: true,
+      panelClass: 'elegant-dialog',
+      data: {
+        title: 'Eliminar evento',
+        message: '¿Está seguro de eliminar este evento?',
+        type: 'warning',
+        confirmText: 'Eliminar',
+        cancelText: 'Cancelar'
+      }
+    })
+    .afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((result) => {
+      if (result) {
+        this.deleteEvent(id);
       }
     });
   }
