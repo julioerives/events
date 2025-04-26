@@ -64,12 +64,12 @@ export class EventsComponent implements OnInit,OnDestroy{
       finalize(() => this.isLoading = false)
     ).subscribe({
       next: (data) => {
-        alert(data.message);
+        this._alertService.success(data.message);
         this.getEvents();
       },
       error: (err) => {
         this.isLoading = false;
-        alert(err.error.message);
+        this._alertService.error(err.error.message);
       }
     });
   }

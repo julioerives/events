@@ -14,6 +14,7 @@ import { Event } from '../../../data/models/events/event.model';
 import { EventsService } from '../../../data/services/events/events.service';
 import { LoadingService } from '../../../core/loading/loading.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
+import { AlertsService } from '../../../core/alerts/alerts.service';
 
 @Component({
   selector: 'app-events-modal',
@@ -39,6 +40,7 @@ export class EventsModalComponent implements OnInit, OnDestroy {
   private dialogRef: MatDialogRef<EventsModalComponent> = inject(MatDialogRef<EventsModalComponent>);
   private _eventService: EventsService = inject(EventsService);
   private _loadingService: LoadingService = inject(LoadingService);
+  private _alertService: AlertsService = inject(AlertsService);
 
   private destroy$: Subject<void> = new Subject<void>();
   constructor(
@@ -86,11 +88,11 @@ export class EventsModalComponent implements OnInit, OnDestroy {
     )
     .subscribe({
       next: (d)=> {
-        alert(d.message);
+        this._alertService.success(d.message);
         this.dialogRef.close(true);
       },
       error: (e) => {
-        alert(e.message);
+        this._alertService.error(e.message);
       }
     })
   }

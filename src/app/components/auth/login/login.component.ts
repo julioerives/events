@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { getErrorClass } from '../../../helpers/formFunctions';
 import { LoadingService } from '../../../core/loading/loading.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
+import { AlertsService } from '../../../core/alerts/alerts.service';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ export class LoginComponent  implements OnInit{
   private _authService: AuthService = inject(AuthService);
   private _router: Router = inject(Router);
   private _loadingService: LoadingService = inject(LoadingService);
+  private _alertService: AlertsService = inject(AlertsService);
 
   ngOnInit(): void {
       this.buildForm()
@@ -53,12 +55,13 @@ export class LoginComponent  implements OnInit{
       }))
     .subscribe({
       next: (res) => {
+        this._alertService.success(res.message);
         this.loading = false;
         this._router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.loading = false;
-        alert('Credenciales incorrectas');
+        this._alertService.error(err.error.message);
       }
     });
   }

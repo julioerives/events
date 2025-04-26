@@ -7,6 +7,7 @@ import { finalize, Subject, takeUntil } from 'rxjs';
 import { Login } from '../../../data/models/auth/auth.model';
 import { LoadingService } from '../../../core/loading/loading.service';
 import { Router, RouterModule } from '@angular/router';
+import { AlertsService } from '../../../core/alerts/alerts.service';
 
 @Component({
   selector: 'app-register',
@@ -29,6 +30,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
   private _authService: AuthService = inject(AuthService);
   private _router: Router = inject(Router);
   private _loadingService: LoadingService = inject(LoadingService);
+  private _alertService: AlertsService = inject(AlertsService);
 
   ngOnInit(): void {
     this.buildForm()
@@ -52,7 +54,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
 
   onSubmit() {
     if (!this.form.valid) {
-      alert('Datos invalidos')
+      this._alertService.info('Formulario inválido');
       return;
     }
     this._loadingService.showLoading();
@@ -66,11 +68,11 @@ export class RegisterComponent implements OnDestroy, OnInit {
       .subscribe(
         {
           next: (d) => {
-            alert(d.message)
+            this._alertService.success(d.message)
             this._router.navigate(['/dashboard']);
           },
           error: (e) => {
-
+            this._alertService.error(e.error.message);
           }
         }
       )
