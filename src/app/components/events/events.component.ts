@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { EventsService } from '../../data/services/events/events.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
+import { AlertsService } from '../../core/alerts/alerts.service';
 
 @Component({
   selector: 'app-events',
@@ -26,13 +27,14 @@ import { EventCardComponent } from './event-card/event-card.component';
 export class EventsComponent implements OnInit,OnDestroy{
   private _dialog: MatDialog = inject(MatDialog);
   private _eventService: EventsService = inject(EventsService);
+  private _alertService: AlertsService = inject(AlertsService);
   public events = signal<Event[]>([]);
   isLoading: boolean = false;
 
   private destroy$: Subject<void> = new Subject<void>();
 
   ngOnInit(): void {
-    this.getEvents();
+    this.getEvents();    
   }
   ngOnDestroy(): void {
     this.destroy$.next();
