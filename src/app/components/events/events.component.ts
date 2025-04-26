@@ -34,7 +34,7 @@ export class EventsComponent implements OnInit,OnDestroy{
   private destroy$: Subject<void> = new Subject<void>();
 
   ngOnInit(): void {
-    this.getEvents();    
+    this.getEvents();
   }
   ngOnDestroy(): void {
     this.destroy$.next();
