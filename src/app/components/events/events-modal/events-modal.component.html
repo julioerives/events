@@ -17,7 +17,7 @@
     <div class="input-group">
       <label>Fecha de inicio</label>
       <div class="custom-date-input">
-        <input matInput type="datetime-local"   formControlName="startDate" required class="input"
+        <input matInput type="datetime-local" formControlName="startDate" required class="input"
           [ngClass]="{'input-error': form.get('startDate')?.invalid && form.get('startDate')?.touched}">
 
       </div>
@@ -31,7 +31,7 @@
     <div class="input-group">
       <label>Fecha de fin</label>
       <div class="custom-date-input">
-        <input matInput type="datetime-local"  formControlName="endDate" [min]="minEndDate" required class="input"
+        <input matInput type="datetime-local" formControlName="endDate" [min]="minEndDate" required class="input"
           [ngClass]="{'input-error': form.get('endDate')?.invalid && form.get('endDate')?.touched}">
       </div>
       @if (form.get('endDate')?.invalid && form.get('endDate')?.touched) {

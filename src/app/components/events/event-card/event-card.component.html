@@ -5,9 +5,8 @@
             <div class="event-date">
                 <div class="event-day">{{event.startDate | date:'d'}}</div>
                 <div class="event-month">{{event.startDate | date:'MMM'}}</div>
-            </div>
             <div class="event-info">
-                <h3 class="event-title">{{event.eventName ||  'Evento sin título'}}</h3>
+                <h3 class="event-title">{{event.eventName || 'Evento sin título'}}</h3>
                 <div class="event-time">
                     <mat-icon>schedule</mat-icon>
                     <span>{{event.startDate | date:'shortTime'}} - {{event.endDate | date:'shortTime'}}</span>
@@ -28,14 +27,14 @@
                 </div>
             </div>
             @if (showActions) {
-                <div class="event-actions">
-                    <button class="icon-btn edit" matTooltip="Editar evento" >
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button class="icon-btn delete" matTooltip="Eliminar evento" (click)="deleteEvent()">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </div>
+            <div class="event-actions">
+                <button class="icon-btn edit" matTooltip="Editar evento">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button class="icon-btn delete" matTooltip="Eliminar evento" (click)="deleteEvent()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
             }
         </div>
     </div>

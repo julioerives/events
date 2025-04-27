@@ -32,7 +32,7 @@ export class DialogConfirmComponent {
   }
 
   getIcon(): string {
-    switch(this.data.type) {
+    switch (this.data.type) {
       case 'warning': return 'warning';
       case 'error': return 'error';
       case 'success': return 'check_circle';
@@ -41,7 +41,7 @@ export class DialogConfirmComponent {
   }
 
   getIconColor(): string {
-    switch(this.data.type) {
+    switch (this.data.type) {
       case 'warning': return 'warn';
       case 'error': return 'warn';
       case 'success': return 'primary';

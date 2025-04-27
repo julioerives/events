@@ -24,7 +24,7 @@ export class EventCardComponent {
     return '#FF9800';
   }
 
-  deleteEvent(){
+  deleteEvent() {
     this.idEvent.emit(this.event.eventId);
   }
 }

@@ -4,7 +4,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EventsModalComponent } from './events-modal/events-modal.component';
 import { Event } from '../../data/models/events/event.model';
 import { MatIconModule } from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { EventsService } from '../../data/services/events/events.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
@@ -25,7 +25,7 @@ import { DialogConfirmComponent } from '../dialogs/dialog-confirm/dialog-confirm
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss'
 })
-export class EventsComponent implements OnInit,OnDestroy{
+export class EventsComponent implements OnInit, OnDestroy {
   private _dialog: MatDialog = inject(MatDialog);
   private _eventService: EventsService = inject(EventsService);
   private _alertService: AlertsService = inject(AlertsService);
@@ -59,20 +59,20 @@ export class EventsComponent implements OnInit,OnDestroy{
   }
 
   deleteEvent(id: number): void {
-      this.isLoading = true;
-      this._eventService.delete(id).pipe(
-        takeUntil(this.destroy$),
-        finalize(() => this.isLoading = false)
-      ).subscribe({
-        next: (data) => {
-          this._alertService.success(data.message);
-          this.getEvents();
-        },
-        error: (err) => {
-          this.isLoading = false;
-          this._alertService.error(err.error.message);
-        }
-      });
+    this.isLoading = true;
+    this._eventService.delete(id).pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.isLoading = false)
+    ).subscribe({
+      next: (data) => {
+        this._alertService.success(data.message);
+        this.getEvents();
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this._alertService.error(err.error.message);
+      }
+    });
   }
 
   deleteEventConfirm(id: number): void {
@@ -88,13 +88,13 @@ export class EventsComponent implements OnInit,OnDestroy{
         cancelText: 'Cancelar'
       }
     })
-    .afterClosed()
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((result) => {
-      if (result) {
-        this.deleteEvent(id);
-      }
-    });
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
+        if (result) {
+          this.deleteEvent(id);
+        }
+      });
   }
 
 
