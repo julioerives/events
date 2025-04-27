@@ -17,12 +17,9 @@
     <div class="input-group">
       <label>Fecha de inicio</label>
       <div class="custom-date-input">
-        <input matInput [matDatepicker]="startPicker" formControlName="startDate" required class="input"
+        <input matInput type="datetime-local"   formControlName="startDate" required class="input"
           [ngClass]="{'input-error': form.get('startDate')?.invalid && form.get('startDate')?.touched}">
-        <button type="button" mat-icon-button class="datepicker-toggle" (click)="startPicker.open()">
-          <mat-icon>calendar_today</mat-icon>
-        </button>
-        <mat-datepicker #startPicker></mat-datepicker>
+
       </div>
       @if (form.get('startDate')?.invalid && form.get('startDate')?.touched) {
       <div class="error-message">
@@ -34,12 +31,8 @@
     <div class="input-group">
       <label>Fecha de fin</label>
       <div class="custom-date-input">
-        <input matInput [matDatepicker]="endPicker" formControlName="endDate" [min]="minEndDate" required class="input"
+        <input matInput type="datetime-local"  formControlName="endDate" [min]="minEndDate" required class="input"
           [ngClass]="{'input-error': form.get('endDate')?.invalid && form.get('endDate')?.touched}">
-        <button type="button" mat-icon-button class="datepicker-toggle" (click)="endPicker.open()">
-          <mat-icon>calendar_today</mat-icon>
-        </button>
-        <mat-datepicker #endPicker></mat-datepicker>
       </div>
       @if (form.get('endDate')?.invalid && form.get('endDate')?.touched) {
       <div class="error-message">
