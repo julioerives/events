@@ -16,6 +16,7 @@ export class EventCardComponent {
   @Input() event!: Event;
   @Input() showActions: boolean = true;
   @Output() idEvent: EventEmitter<number> = new EventEmitter<number>();
+  @Output() eventUpdated: EventEmitter<Event> = new EventEmitter<Event>();
 
   getTimeIndicator() {
     const now = new Date();
@@ -26,5 +27,9 @@ export class EventCardComponent {
 
   deleteEvent() {
     this.idEvent.emit(this.event.eventId);
+  }
+
+  updateEvent() {
+    this.eventUpdated.emit(this.event);
   }
 }

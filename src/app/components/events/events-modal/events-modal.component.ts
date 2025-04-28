@@ -61,6 +61,7 @@ export class EventsModalComponent implements OnInit, OnDestroy {
     this.isEditMode = !!this.data?.eventId;
 
     this.form = this.fb.group({
+      eventId: [this.data?.eventId || ''],
       eventName: [this.data?.eventName || '', [Validators.required]],
       startDate: [this.data?.startDate || '', [Validators.required]],
       endDate: [this.data?.endDate || '', [Validators.required]],
@@ -74,11 +75,8 @@ export class EventsModalComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
-  onSubmit(): void {
-    this.isSend = true;
-    if(!this.form.valid) return;
-    this._loadingService.showLoading();
-    const event = this.form.value as Event;
+  postData(event: Event): void {
+
     this._eventService.create(event)
     .pipe(
       takeUntil(this.destroy$),
@@ -95,6 +93,37 @@ export class EventsModalComponent implements OnInit, OnDestroy {
         this._alertService.error(e.message);
       }
     })
+  }
+
+  updateData(event: Event): void {
+    this._eventService.update(event.eventId, event)
+    .pipe(
+      takeUntil(this.destroy$),
+      finalize(() => {
+        this._loadingService.hideLoading();
+      })
+    )
+    .subscribe({
+      next: (d)=> {
+        this._alertService.success(d.message);
+        this.dialogRef.close(true);
+      },
+      error: (e) => {
+        this._alertService.error(e.message);
+      }
+    })
+  }
+
+  onSubmit(): void {
+    this.isSend = true;
+    if(!this.form.valid) return;
+    this._loadingService.showLoading();
+    const event = this.form.value as Event;
+    if(this.data.eventId){
+      this.updateData(event);
+    }else{
+      this.postData(event);
+    }
   }
 
   getErrorClass(control: string) {

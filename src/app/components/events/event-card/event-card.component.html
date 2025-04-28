@@ -29,7 +29,7 @@
             </div>
             @if (showActions) {
             <div class="event-actions">
-                <button class="icon-btn edit" matTooltip="Editar evento">
+                <button class="icon-btn edit" matTooltip="Editar evento" (click)="updateEvent()">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button class="icon-btn delete" matTooltip="Eliminar evento" (click)="deleteEvent()">

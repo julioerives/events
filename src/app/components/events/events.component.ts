@@ -98,10 +98,11 @@ export class EventsComponent implements OnInit, OnDestroy {
   }
 
 
-  openDialog(): void {
+  openDialog(event?: Event): void {
     const dialogRef = this._dialog.open(EventsModalComponent, {
+      disableClose: true,
       width: '600px',
-      data: {}
+      data: event
     })
     .afterClosed()
     .pipe(takeUntil(this.destroy$))

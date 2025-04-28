@@ -27,7 +27,7 @@ export abstract class RepoService<T> {
     return this.httpClient.post<Response<T>>(this.fullUrl, item);
   }
 
-  update(id: string | number, item: T) {
+  update(id: string | number = 0, item: T) {
     return this.httpClient.put<Response<T>>(`${this.fullUrl}/${id}`, item);
   }
 
