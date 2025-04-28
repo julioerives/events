@@ -1,0 +1,1 @@
+export interface DatesSet { start: Date; end: Date; startStr: string; endStr: string }

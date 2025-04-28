@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CalendarOptions, EventInput } from '@fullcalendar/core';
 import { CalendarComponent } from '../../shared/calendar/calendar.component';
 import { Event } from '../../data/models/events/event.model';
 import { MatIconModule } from '@angular/material/icon';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { EventsService } from '../../data/services/events/events.service';
+import { finalize, Subject, takeUntil } from 'rxjs';
+import { DatesSet } from '../../data/models/calendar/calendar.model';
 
 @Component({
   selector: 'app-calendar-event',
@@ -20,6 +23,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 export class CalendarEventComponent {
   calendarEvents: EventInput[] = [];
   loading = true;
+  private startDate: string = "";
+  private endDate: string = "";
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -32,14 +37,29 @@ export class CalendarEventComponent {
     eventDidMount: this.customizeEvent.bind(this)
   };
 
-  constructor() {}
+  private _eventsSErvice: EventsService = inject(EventsService);
+
+  private destroy$: Subject<void> = new Subject<void>();
+  constructor() { }
 
   ngOnInit(): void {
-    this.loadEvents();
   }
 
   loadEvents(): void {
-
+    this.loading = true;
+    this._eventsSErvice.getAllByDates(this.startDate, this.endDate).pipe(
+      takeUntil(this.destroy$),
+      finalize(() => this.loading = false)
+    ).subscribe({
+      next: (res) => {
+        this.calendarEvents = this.transformEvents(res.data);
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      }
+    }
+    )
   }
 
   transformEvents(events: Event[]): EventInput[] {
@@ -71,14 +91,14 @@ export class CalendarEventComponent {
   customizeEvent(info: any): void {
     const event = info.event;
     const element = info.el;
-    
+
     if (event.extendedProps.phoneNotifications) {
       element.classList.add('has-phone-notification');
     }
     if (event.extendedProps.webNotifications) {
       element.classList.add('has-web-notification');
     }
-    
+
     element.title = `Notificaciones: 
       ${event.extendedProps.phoneNotifications ? 'Teléfono' : ''}
       ${event.extendedProps.webNotifications ? 'Web' : ''}
@@ -91,5 +111,11 @@ export class CalendarEventComponent {
 
   handleDateSelect(selectInfo: any): void {
     console.log('Date selected:', selectInfo);
+  }
+
+  handleDatesSet(dateInfo: DatesSet): void {
+    this.startDate = dateInfo.startStr;
+    this.endDate = dateInfo.endStr;
+    this.loadEvents();
   }
 }

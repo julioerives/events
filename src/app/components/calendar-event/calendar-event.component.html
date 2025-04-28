@@ -6,6 +6,7 @@
     } @else {
       <app-calendar
         [events]="calendarEvents"
+        (datesSet)="handleDatesSet($event)"
         (eventClick)="handleEventClick($event)"
         (dateClick)="handleDateSelect($event)">
       </app-calendar>
