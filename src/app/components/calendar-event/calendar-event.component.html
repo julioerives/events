@@ -1,0 +1,13 @@
+<div class="event-calendar-container">
+    @if (false) {
+      <div class="loading-overlay">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+    } @else {
+      <app-calendar
+        [events]="calendarEvents"
+        (eventClick)="handleEventClick($event)"
+        (dateClick)="handleDateSelect($event)">
+      </app-calendar>
+    }
+  </div>

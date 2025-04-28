@@ -8,6 +8,19 @@
   --warning-color: #ff9800;
   --succes-color: #4caf50;
   --white-color: #eeeeee;
+  --fc-button-bg-color: var(--primary-color);
+  --fc-button-border-color: var(--medium-color);
+  --fc-button-hover-bg-color: var(--secondary-color);
+  --fc-button-hover-border-color: var(--secondary-color);
+  --fc-button-active-bg-color: var(--primary-color);
+  --fc-button-active-border-color: var(--primary-color);
+  --fc-event-bg-color: var(--primary-color);
+  --fc-event-border-color: var(--secondary-color);
+  --fc-event-text-color: var(--white-color);
+  --fc-today-bg-color: rgba(var(--secondary-color), 0.1);
+  --fc-neutral-bg-color: var(--light-color);
+  --fc-border-color: var(--light-color);
+  --fc-page-bg-color: white;
 }
 
 

@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 interface MenuItem {
   text: string;
   icon: string;
   active: boolean;
   badge: string | null;
+  path: string;
 }
 
 @Component({
@@ -22,11 +23,14 @@ interface MenuItem {
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+
+  private _router: Router = inject(Router);
   isCollapsed = true;
   isSidebarVisible = true;
 
   menuItems: MenuItem[] = [
-    { text: 'Events', icon: 'notifications', active: true, badge: null },
+    { text: 'Events', path: 'dashboard/events' , icon: 'notifications', active: true, badge: null },
+    { text: 'Calendar', path: 'dashboard/calendar', icon: 'calendar_today', active: false, badge: null },
   ];
 
   toggleSidebar() {
@@ -38,6 +42,7 @@ export class SidebarComponent {
       ...item,
       active: item.text === selectedItem.text
     }));
+    this._router.navigateByUrl(selectedItem.path);
   }
 
 

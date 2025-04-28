@@ -1,0 +1,46 @@
+.event-calendar-container {
+    position: relative;
+    height: 100%;
+    padding: 1rem;
+    background-color: var(--light-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.7);
+      z-index: 1000;
+    }
+  }
+  
+  :host ::ng-deep {
+    .fc-event {
+      &.has-phone-notification {
+        border-left: 3px solid var(--primary-color);
+      }
+      
+      &.has-web-notification {
+        border-right: 3px solid var(--succes-color);
+      }
+  
+      .fc-event-title {
+        font-weight: 500;
+      }
+  
+      .fc-event-time {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+    }
+  
+    .fc-daygrid-event-dot {
+      display: none;
+    }
+  }
