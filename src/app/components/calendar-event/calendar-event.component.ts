@@ -117,8 +117,6 @@ export class CalendarEventComponent {
   }
 
   handleDatesSet(dateInfo: DatesSet): void {
-    if(this.startDate == dateInfo.startStr && this.endDate == dateInfo.endStr)
-      return
     this.startDate = dateInfo.startStr;
     this.endDate = dateInfo.endStr;
     this.loadEvents();

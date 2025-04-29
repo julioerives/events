@@ -1,14 +1,13 @@
 <div class="event-calendar-container">
-    @if (loading) {
-      <div class="loading-overlay">
-        <mat-spinner diameter="50"></mat-spinner>
-      </div>
-    } @else {
-      <app-calendar
-        [events]="calendarEvents"
-        (datesSet)="handleDatesSet($event)"
-        (eventClick)="handleEventClick($event)"
-        (dateClick)="handleDateSelect($event)">
-      </app-calendar>
-    }
+  <div class="loading-overlay" *ngIf="loading">
+    <mat-spinner diameter="50"></mat-spinner>
   </div>
+  <div [ngStyle]="{ display: loading ? 'none' : 'block' }">
+    <app-calendar
+      [events]="calendarEvents"
+      (datesSet)="handleDatesSet($event)"
+      (eventClick)="handleEventClick($event)"
+      (dateClick)="handleDateSelect($event)">
+    </app-calendar>
+  </div>
+</div>
