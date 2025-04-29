@@ -53,13 +53,14 @@ export class CalendarEventComponent {
     ).subscribe({
       next: (res) => {
         this.calendarEvents = this.transformEvents(res.data);
+        this.calendarOptions.events = [...this.calendarEvents];
+        console.log(this.calendarEvents);
         this.loading = false;
       },
       error: () => {
         this.loading = false;
       }
-    }
-    )
+    });
   }
 
   transformEvents(events: Event[]): EventInput[] {

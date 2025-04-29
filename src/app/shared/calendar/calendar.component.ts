@@ -16,20 +16,26 @@ import { DatesSet } from '../../data/models/calendar/calendar.model';
   styleUrl: './calendar.component.scss'
 })
 export class CalendarComponent {
-  @Input() initialDate: Date = new Date();
-  @Input() events: EventInput[] = [];
+  private _events: EventInput[] = [];
+
+  @Input() set events(value: EventInput[]) {
+    this._events = value;
+    this.calendarOptions.events = [...this._events]; 
+  }
+  get events(): EventInput[] {
+    return this._events;
+  }
+
   @Output() eventClick = new EventEmitter<any>();
   @Output() dateClick = new EventEmitter<any>();
   @Output() datesSet = new EventEmitter<any>();
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
-    initialDate: this.initialDate,
-    events: this.events,
+    events: this._events,
     eventClick: (info) => this.handleEventClick(info),
     dateClick: (info) => this.handleDateClick(info),
     datesSet: this.onDatesSet.bind(this),
-    eventContent: (arg) => ({ html: `<app-calendar-event [event]="arg.event"></app-calendar-event>` }),
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -39,15 +45,12 @@ export class CalendarComponent {
   };
 
   handleEventClick(info: any) {
-    console.log("🚀 ~ CalendarComponent ~ handleEventClick ~ info:", info)
     this.eventClick.emit(info.event);
   }
 
   onDatesSet(dateInfo: DatesSet) {
     this.datesSet.emit(dateInfo);
   }
-
-
 
   handleDateClick(info: any) {
     this.dateClick.emit(info.date);
