@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CalendarOptions, EventInput } from '@fullcalendar/core';
 import { CalendarComponent } from '../../shared/calendar/calendar.component';
 import { Event } from '../../data/models/events/event.model';
@@ -11,6 +11,7 @@ import { DatesSet } from '../../data/models/calendar/calendar.model';
 
 @Component({
   selector: 'app-calendar-event',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     CalendarComponent,
@@ -38,6 +39,7 @@ export class CalendarEventComponent {
   };
 
   private _eventsSErvice: EventsService = inject(EventsService);
+  private _cdr: ChangeDetectorRef = inject(ChangeDetectorRef)
 
   private destroy$: Subject<void> = new Subject<void>();
   constructor() { }
@@ -49,7 +51,10 @@ export class CalendarEventComponent {
     this.loading = true;
     this._eventsSErvice.getAllByDates(this.startDate, this.endDate).pipe(
       takeUntil(this.destroy$),
-      finalize(() => this.loading = false)
+      finalize(() => {
+        this.loading = false
+        this._cdr.markForCheck()
+      })
     ).subscribe({
       next: (res) => {
         this.calendarEvents = this.transformEvents(res.data);
