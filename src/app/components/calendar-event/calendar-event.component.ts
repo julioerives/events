@@ -22,7 +22,7 @@ import { DatesSet } from '../../data/models/calendar/calendar.model';
 })
 export class CalendarEventComponent {
   calendarEvents: EventInput[] = [];
-  loading = true;
+  loading = false;
   private startDate: string = "";
   private endDate: string = "";
 
@@ -114,6 +114,8 @@ export class CalendarEventComponent {
   }
 
   handleDatesSet(dateInfo: DatesSet): void {
+    if(this.startDate == dateInfo.startStr && this.endDate == dateInfo.endStr)
+      return
     this.startDate = dateInfo.startStr;
     this.endDate = dateInfo.endStr;
     this.loadEvents();
