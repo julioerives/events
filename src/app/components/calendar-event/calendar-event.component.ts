@@ -54,10 +54,8 @@ export class CalendarEventComponent {
       next: (res) => {
         this.calendarEvents = this.transformEvents(res.data);
         this.calendarOptions.events = [...this.calendarEvents];
-        this.loading = false;
       },
       error: () => {
-        this.loading = false;
       }
     });
   }
