@@ -1,0 +1,74 @@
+<div class="create-purchases-container">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Agregar Múltiples Purchases</h2>
+        <div class="card-actions">
+          <button matTooltip="Agregar otro purchase" 
+                  class="btn btn-primary btn-sm" 
+                  (click)="addPurchase()">
+            <mat-icon>add</mat-icon>
+            <span>Agregar</span>
+          </button>
+        </div>
+      </div>
+  
+      <div class="card-body">
+        <form [formGroup]="purchaseForm" (ngSubmit)="onSubmit()">
+          <div class="purchases-list">
+            <div class="purchase-item" 
+                 *ngFor="let purchase of purchasesArray.controls; let i = index" 
+                 [formGroupName]="i">
+              <div class="purchase-header">
+                <h3>Purchase #{{i + 1}}</h3>
+                <button type="button" 
+                        matTooltip="Eliminar purchase" 
+                        class="btn-icon danger" 
+                        (click)="removePurchase(i)"
+                        *ngIf="purchasesArray.length > 1">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+  
+              <div class="form-grid">
+                <div class="input-group">
+                  <label>Usuario</label>
+                  <select formControlName="userId" class="input">
+                    <option value="" disabled selected>Seleccione usuario</option>
+                  </select>
+                </div>
+  
+                <div class="input-group">
+                  <label>Tipo de Income</label>
+                  <select formControlName="incomeTypeId" class="input">
+                    <option value="" disabled selected>Seleccione tipo</option>
+                  </select>
+                </div>
+  
+                <div class="input-group">
+                  <label>Cantidad</label>
+                  <input type="number" formControlName="quantity" class="input" step="0.01" min="0">
+                </div>
+  
+                <div class="input-group">
+                  <label>Fecha</label>
+                  <input type="date" formControlName="date" class="input">
+                </div>
+  
+                <div class="input-group full-width">
+                  <label>Descripción</label>
+                  <textarea formControlName="description" class="input" rows="2"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-lg" [disabled]="isLoading || purchaseForm.invalid">
+              <span *ngIf="!isLoading">Guardar Todos</span>
+              <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
