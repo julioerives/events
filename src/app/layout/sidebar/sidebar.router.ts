@@ -3,6 +3,7 @@ import { SidebarComponent } from './sidebar.component';
 import { authGuard } from '../../core/guards/auth/auth.guard';
 import { EventsComponent } from '../../components/events/events.component';
 import { CalendarEventComponent } from '../../components/calendar-event/calendar-event.component';
+import { PurchasesComponent } from '../../components/purchases/purchases.component';
 
 export const routes: Routes = [
     {
@@ -15,6 +16,9 @@ export const routes: Routes = [
             },
             {
                 path: '', redirectTo: 'events', pathMatch: 'full'
+            },
+            {
+                path:'purchases', component: PurchasesComponent
             }
         ]
     }
