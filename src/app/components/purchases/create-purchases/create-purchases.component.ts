@@ -57,9 +57,8 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
 
   createPurchaseFormGroup(): FormGroup {
     return this.fb.group({
-      userId: [null, Validators.required],
       incomeTypeId: [null, Validators.required],
-      quantity: [0, [Validators.required, Validators.min(0.01)]],
+      quantity: [0, [Validators.required, Validators.min(1)]],
       description: ['', Validators.maxLength(255)],
       date: [this.today, Validators.required]
     });
