@@ -61,7 +61,7 @@
                   <div class="input-select">
                     <mat-select formControlName="incomeTypeId">
                       <mat-option value="" disabled selected>Seleccione tipo</mat-option>
-                      <mat-option *ngFor="let type of incomeTypes" [value]="type.id">
+                      <mat-option *ngFor="let type of products()" [value]="type.productId">
                         {{type.name}}
                       </mat-option>
                     </mat-select>

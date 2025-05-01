@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,6 +13,8 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
+import { Products } from '../../../data/models/products/product.model';
+import { ProductsService } from '../../../data/services/products/products.service';
 
 @Component({
   selector: 'app-create-purchases',
@@ -39,21 +41,16 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   // private purchasesService = inject(PurchasesService);
   private alertsService = inject(AlertsService);
+  private productsService = inject(ProductsService);
   
   private destroy$ = new Subject<void>();
-  
-  incomeTypes = [
-    { id: 1, name: 'Tipo 1' },
-    { id: 2, name: 'Tipo 2' },
-    { id: 3, name: 'Tipo 3' }
-    // ... tus tipos de ingreso reales
-  ];
+  public products = signal<Products[]>([]);
   
   getPurchaseFormGroup(index: number): FormGroup {
     return this.purchasesArray.at(index) as FormGroup;
   }
 
-  purchaseForm: FormGroup;
+  purchaseForm!: FormGroup;
   isLoading = false;
   today = new Date().toISOString().split('T')[0];
 
@@ -65,15 +62,22 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
   });
 
   constructor() {
-    this.purchaseForm = this.fb.group({
-      purchases: this.fb.array([this.createPurchaseFormGroup()])
-    });
+
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.buildForm();
+    this.getProducts()
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  buildForm(){
+    this.purchaseForm = this.fb.group({
+      purchases: this.fb.array([this.createPurchaseFormGroup()])
+    });
   }
 
   createPurchaseFormGroup(): FormGroup {
@@ -91,8 +95,21 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
 
   addPurchase(): void {
     this.purchasesArray.push(this.createPurchaseFormGroup());
-    
-    console.log("🚀 ~ CreatePurchasesComponent ~ addPurchase ~ this.purchasesArray:", this.purchasesArray)
+  }
+
+  getProducts(){
+    this.productsService.getAll()
+    .pipe(
+      takeUntil(this.destroy$)
+    )
+    .subscribe({
+      next:(d)=>{
+        this.products.set(d.data)
+      },
+      error:(e)=>{
+        this.alertsService.error(e.error.message)
+      }
+    })
   }
 
   removePurchase(index: number): void {

@@ -16,7 +16,7 @@ export abstract class RepoService<T> {
   }
 
   getAll() {
-    return this.httpClient.get<Response<T>>(this.fullUrl);
+    return this.httpClient.get<Response<T[]>>(this.fullUrl);
   }
 
   getById(id: string | number) {
