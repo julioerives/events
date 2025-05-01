@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,7 +27,7 @@ import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/
 export class CreatePurchasesComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   // private purchasesService = inject(PurchasesService);
-  private dialog = inject(MatDialog);
+
   private alertsService = inject(AlertsService);
   
   private destroy$ = new Subject<void>();
@@ -36,12 +36,18 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
   isLoading = false;
   today = new Date().toISOString().split('T')[0];
 
+  totalItems = computed(() => this.purchasesArray.length);
+  totalAmount = computed(() => {
+    return this.purchasesArray.controls.reduce((sum, control) => {
+      return sum + (control.get('quantity')?.value || 0);
+    }, 0);
+  });
+
   constructor() {
     this.purchaseForm = this.fb.group({
       purchases: this.fb.array([this.createPurchaseFormGroup()])
     });
   }
-
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
@@ -74,6 +80,9 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
       this.alertsService.warning('Debe mantener al menos un purchase');
     }
   }
+  averagePerItem = computed(() => {
+    return this.totalItems() > 0 ? this.totalAmount() / this.totalItems() : 0;
+  });
 
   onSubmit(): void {
     // if (this.purchaseForm.invalid) {
