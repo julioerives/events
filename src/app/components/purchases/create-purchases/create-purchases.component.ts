@@ -57,8 +57,8 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
 
   createPurchaseFormGroup(): FormGroup {
     return this.fb.group({
-      incomeTypeId: [null, Validators.required],
-      quantity: [0, [Validators.required, Validators.min(1)]],
+      incomeTypeId: ['', Validators.required],
+      quantity: [0, [Validators.required, Validators.min(0.01)]],
       description: ['', Validators.maxLength(255)],
       date: [this.today, Validators.required]
     });
@@ -70,6 +70,8 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
 
   addPurchase(): void {
     this.purchasesArray.push(this.createPurchaseFormGroup());
+    
+    console.log("🚀 ~ CreatePurchasesComponent ~ addPurchase ~ this.purchasesArray:", this.purchasesArray)
   }
 
   removePurchase(index: number): void {
