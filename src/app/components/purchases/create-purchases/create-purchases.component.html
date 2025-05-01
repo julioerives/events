@@ -48,9 +48,9 @@
           <div [formGroupName]="i" class="purchase-card-content">
             <div class="purchase-card-header">
               <h3>Producto #{{i + 1}}</h3>
-              <button type="button" matTooltip="Eliminar producto" class="btn-icon danger" (click)="removePurchase(i)"
+              <button type="button" matTooltip="Eliminar producto" class="btn btn-icon danger" (click)="removePurchase(i)"
                 *ngIf="purchasesArray.length > 1">
-                <mat-icon>close</mat-icon>
+                <mat-icon>delete</mat-icon>
               </button>
             </div>
 
