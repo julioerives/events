@@ -9,9 +9,10 @@ import { Subject, takeUntil } from 'rxjs';
 import { AlertsService } from '../../../core/alerts/alerts.service';
 import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatSelectModule} from '@angular/material/select';
 
 @Component({
   selector: 'app-create-purchases',
@@ -28,7 +29,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatOptionModule,
+    MatSelectModule
     
   ]
 })
@@ -39,6 +42,17 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
   
   private destroy$ = new Subject<void>();
   
+  incomeTypes = [
+    { id: 1, name: 'Tipo 1' },
+    { id: 2, name: 'Tipo 2' },
+    { id: 3, name: 'Tipo 3' }
+    // ... tus tipos de ingreso reales
+  ];
+  
+  getPurchaseFormGroup(index: number): FormGroup {
+    return this.purchasesArray.at(index) as FormGroup;
+  }
+
   purchaseForm: FormGroup;
   isLoading = false;
   today = new Date().toISOString().split('T')[0];

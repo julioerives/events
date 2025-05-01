@@ -58,9 +58,14 @@
               <div class="form-row">
                 <div class="input-group">
                   <label>Tipo de Producto</label>
-                  <select formControlName="incomeTypeId" class="input">
-                    <option value="" disabled selected>Seleccione tipo</option>
-                  </select>
+                  <div class="input-select">
+                    <mat-select formControlName="incomeTypeId">
+                      <mat-option value="" disabled selected>Seleccione tipo</mat-option>
+                      <mat-option *ngFor="let type of incomeTypes" [value]="type.id">
+                        {{type.name}}
+                      </mat-option>
+                    </mat-select>
+                  </div>
                 </div>
 
                 <div class="input-group">
