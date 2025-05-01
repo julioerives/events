@@ -194,3 +194,28 @@
     background-color: rgba(var(--error-color), 0.2);
   }
 }
+.input-with-datepicker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+  .input {
+    flex: 1;
+    padding-right: 40px;
+  }
+  
+  .mat-datepicker-toggle {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--medium-color);
+    
+    button {
+      border: none;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

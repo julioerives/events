@@ -72,7 +72,15 @@
               <div class="form-row">
                 <div class="input-group full-width">
                   <label>Fecha de Compra</label>
-                  <input type="date" formControlName="date" class="input">
+                  <div class="input-with-datepicker">
+                    <input type="text" 
+                           class="input"
+                           formControlName="date"
+                           [matDatepicker]="picker"
+                           placeholder="Seleccione fecha">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </div>
                 </div>
               </div>
 

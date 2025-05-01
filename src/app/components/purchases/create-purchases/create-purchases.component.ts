@@ -8,6 +8,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
 import { AlertsService } from '../../../core/alerts/alerts.service';
 import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-create-purchases',
@@ -20,14 +24,17 @@ import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatDatepickerModule
     
   ]
 })
 export class CreatePurchasesComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   // private purchasesService = inject(PurchasesService);
-
   private alertsService = inject(AlertsService);
   
   private destroy$ = new Subject<void>();
