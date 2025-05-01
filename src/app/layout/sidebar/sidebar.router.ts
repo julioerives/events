@@ -18,7 +18,7 @@ export const routes: Routes = [
                 path: '', redirectTo: 'events', pathMatch: 'full'
             },
             {
-                path:'purchases', component: PurchasesComponent
+                path:'purchases', loadChildren: () =>  import("./../../components/purchases/purchases.router").then(m => m.routes)
             }
         ]
     }
