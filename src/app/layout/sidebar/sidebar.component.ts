@@ -25,10 +25,10 @@ interface MenuItem {
 export class SidebarComponent implements OnInit {
 
   private _router: Router = inject(Router);
-  isCollapsed = true;
-  isSidebarVisible = true;
+  public isCollapsed = true;
+  public isSidebarVisible = true;
 
-  menuItems: MenuItem[] = [
+  public menuItems: MenuItem[] = [
     { text: 'Events', path: 'dashboard/events', icon: 'notifications', active: false, badge: null },
     { text: 'Calendar', path: 'dashboard/calendar', icon: 'calendar_today', active: false, badge: null },
     { text: 'Purchases', path: 'dashboard/purchases', icon: 'shopping_cart', active: false, badge: null },
