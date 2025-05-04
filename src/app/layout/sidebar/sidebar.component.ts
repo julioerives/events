@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterOutlet } from '@angular/router';
@@ -22,21 +22,31 @@ interface MenuItem {
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
   private _router: Router = inject(Router);
   isCollapsed = true;
   isSidebarVisible = true;
 
   menuItems: MenuItem[] = [
-    { text: 'Events', path: 'dashboard/events' , icon: 'notifications', active: true, badge: null },
+    { text: 'Events', path: 'dashboard/events', icon: 'notifications', active: false, badge: null },
     { text: 'Calendar', path: 'dashboard/calendar', icon: 'calendar_today', active: false, badge: null },
     { text: 'Purchases', path: 'dashboard/purchases', icon: 'shopping_cart', active: false, badge: null },
-    
+
   ];
+
+  ngOnInit(): void {
+    this.loadRedirectsPaths()
+  }
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  loadRedirectsPaths() {
+    this.menuItems = this.menuItems.map(m => {
+      return { ...m, active: this.isPathOn(m.path) }
+    })
   }
 
   activateItem(selectedItem: MenuItem) {
@@ -45,6 +55,10 @@ export class SidebarComponent {
       active: item.text === selectedItem.text
     }));
     this._router.navigateByUrl(selectedItem.path);
+  }
+
+  isPathOn(path: string): boolean {
+    return location.href.includes(path)
   }
 
 
