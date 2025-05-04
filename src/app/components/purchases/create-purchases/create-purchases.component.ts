@@ -15,6 +15,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { Products } from '../../../data/models/products/product.model';
 import { ProductsService } from '../../../data/services/products/products.service';
+import { PurchasesService } from '../../../data/services/purchases/purchases.service';
+import { MultiplePurchases } from '../../../data/models/purchases/purchases.model';
 
 @Component({
   selector: 'app-create-purchases',
@@ -39,7 +41,7 @@ import { ProductsService } from '../../../data/services/products/products.servic
 })
 export class CreatePurchasesComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
-  // private purchasesService = inject(PurchasesService);
+  private purchasesService = inject(PurchasesService);
   private alertsService = inject(AlertsService);
   private productsService = inject(ProductsService);
 
@@ -88,7 +90,7 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
     );
   
     const amount = this.purchasesArray.controls.reduce((sum, control) => {
-      const productId = control.get('incomeId')?.value;
+      const productId = control.get('productId')?.value;
       const quantity = control.get('quantity')?.value || 0;
       const price = productsCache.get(productId) || 0;
       return sum + (price * quantity);
@@ -106,7 +108,7 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
 
   createPurchaseFormGroup(): FormGroup {
     return this.fb.group({
-      incomeId: ['', Validators.required],
+      productId: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(0.01)]],
       description: ['', Validators.maxLength(255)],
       date: [this.today, Validators.required]
@@ -145,30 +147,32 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    // if (this.purchaseForm.invalid) {
-    //   this.purchaseForm.markAllAsTouched();
-    //   this.alertsService.error('Por favor complete todos los campos requeridos');
-    //   return;
-    // }
+    if (this.purchaseForm.invalid) {
+      this.purchaseForm.markAllAsTouched();
+      this.alertsService.error('Por favor complete todos los campos requeridos');
+      return;
+    }
 
-    // const purchasesData: IncomeRequestDTO[] = this.purchaseForm.value.purchases;
+    const purchasesData: MultiplePurchases ={
+      items:  this.purchaseForm.value.purchases
+    };
 
-    // this.isLoading = true;
-    // this.purchasesService.createMultiple(purchasesData)
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe({
-    //     next: (response) => {
-    //       this.alertsService.success(`${purchasesData.length} purchases creados exitosamente`);
-    //       this.purchaseForm.reset();
-    //       this.purchasesArray.clear();
-    //       this.purchasesArray.push(this.createPurchaseFormGroup());
-    //     },
-    //     error: (err) => {
-    //       this.alertsService.error(err.error?.message || 'Error al crear purchases');
-    //     },
-    //     complete: () => {
-    //       this.isLoading = false;
-    //     }
-    //   });
+    this.isLoading = true;
+    this.purchasesService.createMultiple(purchasesData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response) => {
+          this.alertsService.success(response.message);
+          this.purchaseForm.reset();
+          this.purchasesArray.clear();
+          this.purchasesArray.push(this.createPurchaseFormGroup());
+        },
+        error: (err) => {
+          this.alertsService.error(err.error?.message || 'Error al crear purchases');
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
   }
 }

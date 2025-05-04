@@ -8,3 +8,6 @@ export interface Purchases {
     purchase_date: null;
 }
 
+export interface MultiplePurchases {
+    items: Purchases[]
+}

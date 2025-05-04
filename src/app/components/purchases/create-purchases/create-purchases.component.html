@@ -59,7 +59,7 @@
                 <div class="input-group">
                   <label>Tipo de Producto</label>
                   <div class="input-select">
-                    <mat-select formControlName="incomeId" placeholder="Seleccione el tipo">
+                    <mat-select formControlName="productId" placeholder="Seleccione el tipo">
                       <mat-option *ngFor="let type of products()" [value]="type.productId">
                         {{type.name}}
                       </mat-option>
