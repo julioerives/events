@@ -12,7 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { Products } from '../../../data/models/products/product.model';
 import { ProductsService } from '../../../data/services/products/products.service';
 
@@ -34,7 +34,7 @@ import { ProductsService } from '../../../data/services/products/products.servic
     MatDatepickerModule,
     MatOptionModule,
     MatSelectModule
-    
+
   ]
 })
 export class CreatePurchasesComponent implements OnInit, OnDestroy {
@@ -42,10 +42,10 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
   // private purchasesService = inject(PurchasesService);
   private alertsService = inject(AlertsService);
   private productsService = inject(ProductsService);
-  
+
   private destroy$ = new Subject<void>();
   public products = signal<Products[]>([]);
-  
+
   getPurchaseFormGroup(index: number): FormGroup {
     return this.purchasesArray.at(index) as FormGroup;
   }
@@ -54,19 +54,24 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
   isLoading = false;
   today = new Date().toISOString().split('T')[0];
 
-  totalItems = computed(() => this.purchasesArray.length);
-  totalAmount = computed(() => {
-    return this.purchasesArray.controls.reduce((sum, control) => {
-      return sum + (control.get('quantity')?.value || 0);
-    }, 0);
-  });
+  totalItems = signal(0);
+  totalAmount = signal(0);
+  averagePerItem = signal(0);
 
   constructor() {
 
   }
   ngOnInit(): void {
     this.buildForm();
-    this.getProducts()
+    this.getProducts();
+
+    this.purchasesArray.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.updateComputedValues();
+      });
+
+    this.updateComputedValues();
   }
 
   ngOnDestroy(): void {
@@ -74,7 +79,26 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  buildForm(){
+  private updateComputedValues(): void {
+    const itemsCount = this.purchasesArray.length;
+    this.totalItems.set(itemsCount);
+  
+    const productsCache = new Map(
+      this.products().map(p => [p.productId, p.price])
+    );
+  
+    const amount = this.purchasesArray.controls.reduce((sum, control) => {
+      const productId = control.get('incomeId')?.value;
+      const quantity = control.get('quantity')?.value || 0;
+      const price = productsCache.get(productId) || 0;
+      return sum + (price * quantity);
+    }, 0);
+  
+    this.totalAmount.set(amount);
+    this.averagePerItem.set(itemsCount > 0 ? amount / itemsCount : 0);
+  }
+
+  buildForm() {
     this.purchaseForm = this.fb.group({
       purchases: this.fb.array([this.createPurchaseFormGroup()])
     });
@@ -82,7 +106,7 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
 
   createPurchaseFormGroup(): FormGroup {
     return this.fb.group({
-      incomeTypeId: ['', Validators.required],
+      incomeId: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(0.01)]],
       description: ['', Validators.maxLength(255)],
       date: [this.today, Validators.required]
@@ -97,19 +121,19 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
     this.purchasesArray.push(this.createPurchaseFormGroup());
   }
 
-  getProducts(){
+  getProducts() {
     this.productsService.getAll()
-    .pipe(
-      takeUntil(this.destroy$)
-    )
-    .subscribe({
-      next:(d)=>{
-        this.products.set(d.data)
-      },
-      error:(e)=>{
-        this.alertsService.error(e.error.message)
-      }
-    })
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (d) => {
+          this.products.set(d.data)
+        },
+        error: (e) => {
+          this.alertsService.error(e.error.message)
+        }
+      })
   }
 
   removePurchase(index: number): void {
@@ -119,9 +143,6 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
       this.alertsService.warning('Debe mantener al menos un purchase');
     }
   }
-  averagePerItem = computed(() => {
-    return this.totalItems() > 0 ? this.totalAmount() / this.totalItems() : 0;
-  });
 
   onSubmit(): void {
     // if (this.purchaseForm.invalid) {
@@ -131,7 +152,7 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
     // }
 
     // const purchasesData: IncomeRequestDTO[] = this.purchaseForm.value.purchases;
-    
+
     // this.isLoading = true;
     // this.purchasesService.createMultiple(purchasesData)
     //   .pipe(takeUntil(this.destroy$))
