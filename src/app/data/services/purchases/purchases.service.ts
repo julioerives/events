@@ -17,6 +17,6 @@ export class PurchasesService extends RepoService<Purchases> {
   }
 
   createMultiple(data: MultiplePurchases): Observable<Response<MultiplePurchases>>{
-    return this.httpClient.post<Response<MultiplePurchases>>(this.fullUrl, data)
+    return this.httpClient.post<Response<MultiplePurchases>>(`${this.fullUrl}/multiple`, data)
   }
 }

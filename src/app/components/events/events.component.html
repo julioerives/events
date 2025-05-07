@@ -6,7 +6,7 @@
       </button>
     </div>
   </div>
-  <div class="events-container">
+  <div class="container-card">
     @for (item of events(); track $index) {
     <app-event-card [event]="item" (idEvent)="deleteEventConfirm($event)"  [showActions]="true" (eventUpdated)="openDialog($event)"></app-event-card>
     }

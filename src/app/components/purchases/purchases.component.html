@@ -1,7 +1,44 @@
-<div class="header-cont">
-    <div class="btns-cont">
-      <button class="btn" redit routerLink="createPurchase">
-        Agregar compra
-      </button>
+<div class="container">
+  <div class="list-header">
+    <h2>Historial de Compras</h2>
+    <button class="btn">
+      Nueva Compra
+    </button>
+  </div>
+
+  <div class="container-card">
+    <div class="purchase-item" *ngFor="let purchase of purchases" 
+         (mouseenter)="hoveredItem = purchase.purchase_id" 
+         (mouseleave)="hoveredItem = null">
+      
+      <div class="product-type-indicator" [style.background-color]="getTypeColor(purchase.product.productType)"></div>
+      
+      <div class="item-content">
+        <div class="item-main">
+          <span class="item-id">#{{purchase.purchase_id}}</span>
+          <h3 class="item-name">{{purchase.product.name}}</h3>
+          <div class="item-details">
+            <span class="detail">
+              <i class="fas fa-tag"></i> {{purchase.product.productType.name}}
+            </span>
+            <span class="detail">
+              <i class="fas fa-hashtag"></i> {{purchase.quantity}} unidades
+            </span>
+            <span class="detail">
+              <i class="fas fa-dollar-sign"></i> {{purchase.price || 'N/A'}}
+            </span>
+          </div>
+        </div>
+
+        <div class="item-actions" *ngIf="hoveredItem === purchase.purchase_id">
+          <button class="btn btn-icon" title="Editar">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button class="btn btn-icon danger" title="Eliminar">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

@@ -1,0 +1,128 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    gap: 1rem;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.purchase-list-container {
+    max-width: 100%;
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--light-color);
+
+    h2 {
+        margin: 0;
+        color: var(--primary-color);
+        font-size: 1.5rem;
+    }
+
+    .btn-sm {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+.container-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.purchase-item {
+    display: flex;
+    align-items: stretch;
+    min-height: 60px;
+    border: 1px solid var(--light-color);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+        border-color: var(--primary-color);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.product-type-indicator {
+    width: 6px;
+    background-color: #ccc;
+}
+
+.item-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    padding: 0.75rem;
+}
+
+.item-main {
+    flex: 1;
+
+    .item-id {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--medium-color);
+        margin-bottom: 0.25rem;
+    }
+
+    .item-name {
+        margin: 0;
+        font-size: 1rem;
+        color: var(--dark-color);
+        font-weight: 500;
+    }
+
+    .item-details {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+        flex-wrap: wrap;
+
+        .detail {
+            font-size: 0.8rem;
+            color: var(--medium-color);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+
+            i {
+                font-size: 0.7rem;
+            }
+        }
+    }
+}
+
+.item-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+
+@media (max-width: 768px) {
+    .item-details {
+        flex-direction: column;
+        gap: 0.3rem !important;
+    }
+
+    .purchase-item {
+        min-height: 70px;
+    }
+}

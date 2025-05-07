@@ -710,3 +710,16 @@ body {
   width: 100% !important;
   box-shadow: none !important;
 }
+
+
+.container-card {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: var(--white-color);
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+}
