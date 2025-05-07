@@ -38,6 +38,6 @@
     </div>
     }
 </div>
-<div class="routerOutletCont" (click)="onContentClick()">
+<div class="routerOutletCont" [ngClass]="{darkBackground: !isCollapsed}" (click)="onContentClick()">
     <router-outlet></router-outlet>
 </div>

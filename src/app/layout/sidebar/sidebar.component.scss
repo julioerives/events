@@ -20,7 +20,7 @@
 
   &.collapsed {
     width: 70px;
-
+    
     .menu-text,
     .badge,
     .sidebar-footer,
@@ -208,4 +208,8 @@
   height: 100vh;
   background-color: var(--light-color);
   overflow: auto;
+}
+
+.darkBackground{
+  filter: brightness(.2);
 }
