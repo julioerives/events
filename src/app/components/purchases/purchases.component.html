@@ -1,18 +1,41 @@
 <div class="container">
-  <div class="list-header">
-    <h2>Historial de Compras</h2>
-    <button class="btn">
-      Nueva Compra
-    </button>
-  </div>
+
 
   <div class="container-card">
-    <div class="purchase-item" *ngFor="let purchase of purchases" 
-         (mouseenter)="hoveredItem = purchase.purchase_id" 
-         (mouseleave)="hoveredItem = null">
-      
+    <div class="filters-section">
+      <div class="category-chips">
+        <mat-chip-listbox>
+          <mat-chip-option *ngFor="let type of productTypes" [selected]="selectedType === type.id"
+            (click)="filterByType(type.id)" class="custom-chip">
+            {{type.name}} ({{getCountByType(type.id)}})
+          </mat-chip-option>
+        </mat-chip-listbox>
+      </div>
+      <hr>
+      <div class="simple-filters">
+        <div class="search-box">
+          <div class="input-group">
+            <input type="text" class="input" placeholder="Coca Cola, Auriculares..." [(ngModel)]="searchQuery">
+          </div>
+        </div>
+
+        <div class="sort-options">
+          <div class="input-group">
+            <div class="input-select">
+              <mat-select [(value)]="sortBy">
+                <mat-option value="recent">Más recientes</mat-option>
+                <mat-option value="oldest">Más antiguas</mat-option>
+                <mat-option value="quantity">Cantidad</mat-option>
+                <mat-option value="price">Precio</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="purchase-item" *ngFor="let purchase of purchases" (mouseenter)="hoveredItem = purchase.purchase_id"
+      (mouseleave)="hoveredItem = null">
       <div class="product-type-indicator" [style.background-color]="getTypeColor(purchase.product.productType)"></div>
-      
       <div class="item-content">
         <div class="item-main">
           <span class="item-id">#{{purchase.purchase_id}}</span>
