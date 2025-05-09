@@ -1,5 +1,33 @@
 <div class="container">
+
+
+
   <div class="container-card">
+    <div class="stats-cards">
+      <div class="stat-card">
+        <div class="stat-value">{{ totalPurchases }}</div>
+        <div class="stat-label">Compras totales</div>
+        <mat-icon class="stat-icon" >shopping_cart</mat-icon>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-value" [style.color]="'var(--succes-color)'">{{ totalProducts | number }}</div>
+        <div class="stat-label" [style.color]="'var(--succes-color)'">Productos comprados</div>
+        <mat-icon class="stat-icon" [style.color]="'var(--succes-color)'">inventory_2</mat-icon>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-value" [style.color]="'var(--warning-color)'">{{ totalSpent | currency }}</div>
+        <div class="stat-label" [style.color]="'var(--warning-color)'">Total gastado</div>
+        <mat-icon class="stat-icon"[style.color]="'var(--warning-color)'">attach_money</mat-icon>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-value" [style.color]="'RGB(200, 160, 255)'">{{ avgPurchase | currency }}</div>
+        <div class="stat-label" [style.color]="'RGB(200, 160, 255, .6)'">Promedio por compra</div>
+        <mat-icon class="stat-icon" [style.color]="'RGB(200, 160, 255)'">trending_up</mat-icon>
+      </div>
+    </div>
     <div class="filters-section">
       <div class="category-chips">
         <mat-chip-listbox>
@@ -18,7 +46,7 @@
         </div>
 
         <div class="filter-menu">
-          <button  [matMenuTriggerFor]="optionsMenu" class="filter-btn btn" matTooltip="Buscar gasto">
+          <button [matMenuTriggerFor]="optionsMenu" class="filter-btn btn" matTooltip="Buscar gasto">
             <mat-icon>swap_vert</mat-icon>
           </button>
           <mat-menu #optionsMenu="matMenu" xPosition="before">
@@ -40,7 +68,7 @@
         </div>
 
         <div class="filter-menu">
-          <button  [matMenuTriggerFor]="filterMenu" class="filter-btn btn" matTooltip="Filtros">
+          <button [matMenuTriggerFor]="filterMenu" class="filter-btn btn" matTooltip="Filtros">
             <mat-icon>filter_list</mat-icon>
           </button>
           <mat-menu #filterMenu="matMenu" xPosition="before">
@@ -70,9 +98,8 @@
       </div>
     </div>
 
-    <div class="purchase-item" *ngFor="let purchase of filteredPurchases" 
-         (mouseenter)="hoveredItem = purchase.purchase_id"
-         (mouseleave)="hoveredItem = null">
+    <div class="purchase-item" *ngFor="let purchase of filteredPurchases"
+      (mouseenter)="hoveredItem = purchase.purchase_id" (mouseleave)="hoveredItem = null">
       <div class="product-type-indicator" [style.background-color]="getTypeColor(purchase.product.productType)"></div>
       <div class="item-content">
         <div class="item-main">

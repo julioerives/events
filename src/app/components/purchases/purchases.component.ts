@@ -3,18 +3,18 @@ import { CreatePurchasesComponent } from './create-purchases/create-purchases.co
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
-import {MatCardModule} from '@angular/material/card';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatChipsModule } from '@angular/material/chips'; 
+import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
@@ -116,23 +116,39 @@ export class PurchasesComponent {
     // ... más compras ...
   ];
 
+  get totalPurchases(): number {
+    return this.purchases.length;
+  }
+
+  get totalProducts(): number {
+    return this.purchases.reduce((sum, purchase) => sum + purchase.quantity, 0);
+  }
+
+  get totalSpent(): number {
+    return this.purchases.reduce((sum, purchase) => sum + (purchase.price * purchase.quantity), 0);
+  }
+
+  get avgPurchase(): number {
+    return this.totalPurchases > 0 ? this.totalSpent / this.totalPurchases : 0;
+  }
+
   get filteredPurchases() {
     let filtered = [...this.purchases];
-    
+
     // Filtrar por tipo
     if (this.selectedType) {
       filtered = filtered.filter(p => p.product.productType.productTypeId === this.selectedType);
     }
-    
+
     // Filtrar por búsqueda
     if (this.searchQuery) {
       const query = this.searchQuery.toLowerCase();
-      filtered = filtered.filter(p => 
+      filtered = filtered.filter(p =>
         p.product.name.toLowerCase().includes(query) ||
         p.product.productType.name.toLowerCase().includes(query)
       );
     }
-    
+
     // Ordenar
     switch (this.sortBy) {
       case 'recent':
@@ -148,14 +164,14 @@ export class PurchasesComponent {
         filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
         break;
     }
-    
+
     // Paginación
     this.totalItems = filtered.length;
     const startIndex = this.currentPage * this.pageSize;
     return filtered.slice(startIndex, startIndex + this.pageSize);
   }
 
- 
+
   clearFilters() {
     this.searchQuery = '';
     this.selectedType = null;

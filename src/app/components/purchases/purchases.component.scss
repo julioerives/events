@@ -143,12 +143,12 @@
     background-color: white;
     color: var(--dark-color);
     transition: all 0.2s ease;
-    
+
     &:hover {
         background-color: rgba(var(--primary-color), 0.1);
         border-color: var(--primary-color);
     }
-    
+
     mat-icon {
         width: 20px;
         height: 20px;
@@ -159,28 +159,96 @@
 .mat-menu-panel {
     border-radius: 8px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    
+
     .mat-menu-item {
         display: flex;
         align-items: center;
         gap: 0.75rem;
         height: 40px;
         line-height: 40px;
-        
+
         mat-icon {
             width: 20px;
             height: 20px;
             font-size: 20px;
             color: var(--medium-color);
         }
-        
+
         &:hover {
             background-color: rgba(var(--primary-color), 0.05);
         }
     }
-    
+
     .mat-divider {
         margin: 0.5rem 0;
+    }
+}
+
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .stat-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--light-color);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--medium-color);
+        }
+
+        .stat-icon {
+            position: absolute;
+            right: 1rem;
+            top: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-cards {
+        grid-template-columns: repeat(2, 1fr);
+
+        .stat-card {
+            padding: 1rem;
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .stat-icon {
+                font-size: 2rem;
+                top: 1rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-cards {
+        grid-template-columns: 1fr;
     }
 }
 
