@@ -16,6 +16,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { HexToRgbaPipe } from '../../pipes/HexToRgba/hex-to-rgba.pipe';
 
 
 @Component({
@@ -36,7 +37,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatRadioModule,
     MatMenuModule,
     MatDividerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    HexToRgbaPipe
   ],
   templateUrl: './purchases.component.html',
   styleUrl: './purchases.component.scss'

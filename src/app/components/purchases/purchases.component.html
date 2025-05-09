@@ -12,13 +12,13 @@
 
       <div class="stat-card">
         <div class="stat-value" [style.color]="'var(--succes-color)'">{{ totalProducts | number }}</div>
-        <div class="stat-label" [style.color]="'RGBA(76, 175, 80,.6)'">Productos comprados</div>
+        <div class="stat-label" [style.color]="'#4caf50' | hexToRgba: 0.6">Productos comprados</div>
         <mat-icon class="stat-icon" [style.color]="'var(--succes-color)'">inventory_2</mat-icon>
       </div>
 
       <div class="stat-card">
         <div class="stat-value" [style.color]="'var(--warning-color)'">{{ totalSpent | currency }}</div>
-<div class="stat-label" [style.color]="'rgba(255, 152, 0, 0.6)'">Total gastado</div>
+<div class="stat-label" [style.color]="'#ff9800' | hexToRgba: 0.6">Total gastado  </div>
         <mat-icon class="stat-icon"[style.color]="'var(--warning-color)'">attach_money</mat-icon>
       </div>
 
