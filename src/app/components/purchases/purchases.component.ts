@@ -12,6 +12,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips'; 
 import { FormsModule } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDividerModule} from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
@@ -28,7 +32,11 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatInputModule,
     MatChipsModule,
-    FormsModule
+    FormsModule,
+    MatRadioModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatTooltipModule
   ],
   templateUrl: './purchases.component.html',
   styleUrl: './purchases.component.scss'
@@ -41,6 +49,8 @@ export class PurchasesComponent {
   pageSize = 10;
   currentPage = 0;
   totalItems = 0;
+  dateFrom: Date | null = null;
+  dateTo: Date | null = null;
 
   productTypes = [
     { id: 1, name: 'Bebida' },
@@ -145,18 +155,31 @@ export class PurchasesComponent {
     return filtered.slice(startIndex, startIndex + this.pageSize);
   }
 
+ 
+  clearFilters() {
+    this.searchQuery = '';
+    this.selectedType = null;
+    this.dateFrom = null;
+    this.dateTo = null;
+    this.sortBy = 'recent';
+  }
+
+  resetFilters() {
+    this.selectedType = null;
+    this.searchQuery = '';
+    this.sortBy = 'recent';
+  }
+
   getCountByType(typeId: number): number {
     return this.purchases.filter(p => p.product.productType.productTypeId === typeId).length;
   }
 
-  filterByType(typeId: number) {
-    this.selectedType = this.selectedType === typeId ? null : typeId;
-    this.currentPage = 0;
+  setSort(sortType: string) {
+    this.sortBy = sortType;
   }
 
-  onPageChange(event: PageEvent) {
-    this.currentPage = event.pageIndex;
-    this.pageSize = event.pageSize;
+  filterByType(typeId: number) {
+    this.selectedType = this.selectedType === typeId ? null : typeId;
   }
 
   getTypeColor(productType: any): string {

@@ -1,6 +1,4 @@
 <div class="container">
-
-
   <div class="container-card">
     <div class="filters-section">
       <div class="category-chips">
@@ -19,22 +17,62 @@
           </div>
         </div>
 
-        <div class="sort-options">
-          <div class="input-group">
-            <div class="input-select">
-              <mat-select [(value)]="sortBy">
-                <mat-option value="recent">Más recientes</mat-option>
-                <mat-option value="oldest">Más antiguas</mat-option>
-                <mat-option value="quantity">Cantidad</mat-option>
-                <mat-option value="price">Precio</mat-option>
-              </mat-select>
-            </div>
-          </div>
+        <div class="filter-menu">
+          <button  [matMenuTriggerFor]="optionsMenu" class="filter-btn btn" matTooltip="Buscar gasto">
+            <mat-icon>swap_vert</mat-icon>
+          </button>
+          <mat-menu #optionsMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="setSort('recent')">
+              <mat-icon>{{sortBy === 'recent' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+              <span>Descripcion</span>
+            </button>
+
+            <button mat-menu-item (click)="setSort('recent')">
+              <mat-icon>{{sortBy === 'recent' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+              <span>Producto</span>
+            </button>
+
+            <button mat-menu-item (click)="setSort('recent')">
+              <mat-icon>{{sortBy === 'recent' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+              <span>Tipo de producto</span>
+            </button>
+          </mat-menu>
+        </div>
+
+        <div class="filter-menu">
+          <button  [matMenuTriggerFor]="filterMenu" class="filter-btn btn" matTooltip="Filtros">
+            <mat-icon>filter_list</mat-icon>
+          </button>
+          <mat-menu #filterMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="setSort('recent')">
+              <mat-icon>{{sortBy === 'recent' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+              <span>Más recientes</span>
+            </button>
+            <button mat-menu-item (click)="setSort('oldest')">
+              <mat-icon>{{sortBy === 'oldest' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+              <span>Más antiguas</span>
+            </button>
+            <button mat-menu-item (click)="setSort('quantity')">
+              <mat-icon>{{sortBy === 'quantity' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+              <span>Por cantidad</span>
+            </button>
+            <button mat-menu-item (click)="setSort('price')">
+              <mat-icon>{{sortBy === 'price' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+              <span>Por precio</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="resetFilters()">
+              <mat-icon>clear_all</mat-icon>
+              <span>Limpiar filtros</span>
+            </button>
+          </mat-menu>
         </div>
       </div>
     </div>
-    <div class="purchase-item" *ngFor="let purchase of purchases" (mouseenter)="hoveredItem = purchase.purchase_id"
-      (mouseleave)="hoveredItem = null">
+
+    <div class="purchase-item" *ngFor="let purchase of filteredPurchases" 
+         (mouseenter)="hoveredItem = purchase.purchase_id"
+         (mouseleave)="hoveredItem = null">
       <div class="product-type-indicator" [style.background-color]="getTypeColor(purchase.product.productType)"></div>
       <div class="item-content">
         <div class="item-main">
@@ -42,23 +80,23 @@
           <h3 class="item-name">{{purchase.product.name}}</h3>
           <div class="item-details">
             <span class="detail">
-              <i class="fas fa-tag"></i> {{purchase.product.productType.name}}
+              <mat-icon>label</mat-icon> {{purchase.product.productType.name}}
             </span>
             <span class="detail">
-              <i class="fas fa-hashtag"></i> {{purchase.quantity}} unidades
+              <mat-icon>numbers</mat-icon> {{purchase.quantity}} unidades
             </span>
             <span class="detail">
-              <i class="fas fa-dollar-sign"></i> {{purchase.price || 'N/A'}}
+              <mat-icon>attach_money</mat-icon> {{purchase.price | currency}}
             </span>
           </div>
         </div>
 
         <div class="item-actions" *ngIf="hoveredItem === purchase.purchase_id">
-          <button class="btn btn-icon" title="Editar">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button class="btn btn-icon danger" title="Eliminar">
+          <button class="btn btn-icon" matTooltip="Editar">
             <mat-icon>edit</mat-icon>
+          </button>
+          <button class="btn btn-icon danger" matTooltip="Eliminar">
+            <mat-icon>delete</mat-icon>
           </button>
         </div>
       </div>
