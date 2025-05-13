@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { CreatePurchasesComponent } from './create-purchases/create-purchases.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -17,6 +17,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HexToRgbaPipe } from '../../pipes/HexToRgba/hex-to-rgba.pipe';
+import { Purchases } from '../../data/models/purchases/purchases.model';
+import { Subject, takeUntil } from 'rxjs';
+import { PurchasesService } from '../../data/services/purchases/purchases.service';
+import { AlertsService } from '../../core/alerts/alerts.service';
 
 
 @Component({
@@ -43,10 +47,11 @@ import { HexToRgbaPipe } from '../../pipes/HexToRgba/hex-to-rgba.pipe';
   templateUrl: './purchases.component.html',
   styleUrl: './purchases.component.scss'
 })
-export class PurchasesComponent {
+export class PurchasesComponent implements OnInit, OnDestroy {
   hoveredItem: number | null = null;
   searchQuery: string = '';
   sortBy: string = 'recent';
+  searchBy: string = 'description'
   selectedType: number | null = null;
   pageSize = 10;
   currentPage = 0;
@@ -60,74 +65,32 @@ export class PurchasesComponent {
     { id: 3, name: 'Electrónico' }
   ];
 
-  purchases = [
-    {
-      "purchase_id": 1,
-      "product": {
-        "productId": 3,
-        "productType": {
-          "productTypeId": 1,
-          "name": "Bebida",
-          "description": "Bebidas tomadas",
-          "colorRgba": "rgba(76, 175, 80, 0.8)"
-        },
-        "price": 100.0,
-        "name": "Coca Cola",
-        "createdAt": null
-      },
-      "quantity": 3,
-      "price": 100.0,
-      "purchase_date": "2023-06-15"
-    },
-    {
-      "purchase_id": 2,
-      "product": {
-        "productId": 3,
-        "productType": {
-          "productTypeId": 1,
-          "name": "Bebida",
-          "description": "Bebidas tomadas",
-          "colorRgba": "rgba(38, 0, 255, 0.8)"
-        },
-        "price": 100.0,
-        "name": "Coca Cola",
-        "createdAt": null
-      },
-      "quantity": 3,
-      "price": 100.0,
-      "purchase_date": "2023-06-15"
-    },
-    {
-      "purchase_id": 3,
-      "product": {
-        "productId": 3,
-        "productType": {
-          "productTypeId": 1,
-          "name": "Bebida",
-          "description": "Bebidas tomadas",
-          "colorRgba": "rgba(0, 0, 0, 0.8)"
-        },
-        "price": 100.0,
-        "name": "Coca Cola",
-        "createdAt": null
-      },
-      "quantity": 3,
-      "price": 100.0,
-      "purchase_date": "2023-06-15"
-    },
-    // ... más compras ...
-  ];
+  purchases = signal<Purchases[]>([]);
+
+  private destroy$ = new Subject<void>();
+
+  private _purchasesService: PurchasesService = inject(PurchasesService);
+  private _alert: AlertsService = inject(AlertsService);
+
+  ngOnInit(): void {
+    this.getPurchases()
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.complete()
+    this.destroy$.next()
+  }
 
   get totalPurchases(): number {
     return this.purchases.length;
   }
 
   get totalProducts(): number {
-    return this.purchases.reduce((sum, purchase) => sum + purchase.quantity, 0);
+    return this.purchases().reduce((sum, purchase) => sum + purchase.quantity, 0);
   }
 
   get totalSpent(): number {
-    return this.purchases.reduce((sum, purchase) => sum + (purchase.price * purchase.quantity), 0);
+    return this.purchases().reduce((sum, purchase) => sum + (purchase.price * purchase.quantity), 0);
   }
 
   get avgPurchase(): number {
@@ -135,7 +98,7 @@ export class PurchasesComponent {
   }
 
   get filteredPurchases() {
-    let filtered = [...this.purchases];
+    let filtered = [...this.purchases()];
 
     // Filtrar por tipo
     if (this.selectedType) {
@@ -148,7 +111,7 @@ export class PurchasesComponent {
       filtered = filtered.filter(p =>
         p.product.name.toLowerCase().includes(query) ||
         p.product.productType.name.toLowerCase().includes(query)
-      );
+      ) as any;
     }
 
     // Ordenar
@@ -173,6 +136,21 @@ export class PurchasesComponent {
     return filtered.slice(startIndex, startIndex + this.pageSize);
   }
 
+  getPurchases() {
+    this._purchasesService.getPurchasesByFilters(this.sortBy, this.currentPage, this.pageSize, this.searchQuery, this.searchBy)
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (d) => {
+          this.purchases.set(d.content)
+        },
+        error: (e) => {
+          this._alert.error(e.error.message)
+        }
+      })
+  }
+
 
   clearFilters() {
     this.searchQuery = '';
@@ -189,11 +167,15 @@ export class PurchasesComponent {
   }
 
   getCountByType(typeId: number): number {
-    return this.purchases.filter(p => p.product.productType.productTypeId === typeId).length;
+    return this.purchases().filter(p => p.product.productType.productTypeId === typeId).length;
   }
 
   setSort(sortType: string) {
     this.sortBy = sortType;
+  }
+
+  setSearch(searchBy: string) {
+    this.searchBy = searchBy;
   }
 
   filterByType(typeId: number) {

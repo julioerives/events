@@ -50,18 +50,18 @@
             <mat-icon>swap_vert</mat-icon>
           </button>
           <mat-menu #optionsMenu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="setSort('recent')">
-              <mat-icon>{{sortBy === 'recent' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
-              <span>Descripcion</span>
+            <button mat-menu-item (click)="setSort('description')">
+              <mat-icon>{{searchBy === 'description' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+              <span>Description</span>
             </button>
 
-            <button mat-menu-item (click)="setSort('recent')">
-              <mat-icon>{{sortBy === 'recent' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+            <button mat-menu-item (click)="setSort('product')">
+              <mat-icon>{{searchBy === 'product' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
               <span>Producto</span>
             </button>
 
-            <button mat-menu-item (click)="setSort('recent')">
-              <mat-icon>{{sortBy === 'recent' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+            <button mat-menu-item (click)="setSort('productType')">
+              <mat-icon>{{searchBy === 'productType' ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
               <span>Tipo de producto</span>
             </button>
           </mat-menu>

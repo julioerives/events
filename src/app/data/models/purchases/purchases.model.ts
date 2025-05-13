@@ -5,7 +5,7 @@ export interface Purchases {
     product:       Products;
     quantity:      number;
     price:         number;
-    purchase_date: null;
+    purchase_date: Date;
 }
 
 export interface MultiplePurchases {
