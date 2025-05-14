@@ -47,6 +47,7 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
   public products = signal<Products[]>([]);
+  private productSelected: Products | null = null;
 
   getPurchaseFormGroup(index: number): FormGroup {
     return this.purchasesArray.at(index) as FormGroup;
@@ -111,7 +112,8 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
       productId: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(0.01)]],
       description: ['', Validators.maxLength(255)],
-      purchaseDate: [this.today, Validators.required]
+      purchaseDate: [this.today, Validators.required],
+      price: [0, Validators.required]
     });
   }
 
@@ -144,6 +146,13 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
     } else {
       this.alertsService.warning('Debe mantener al menos un purchase');
     }
+  }
+
+  onProductSelect(productId: number, i: number){
+    const product = this.products().find(p => p.productId === productId)
+    const control = this.purchasesArray.at(i)
+    const newValue = (control.get('quantity')?.value as number) * (product?.price || 0)
+    control.get('price')?.setValue(newValue)
   }
 
   onSubmit(): void {

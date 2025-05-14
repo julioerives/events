@@ -59,7 +59,7 @@
                 <div class="input-group">
                   <label>Tipo de Producto</label>
                   <div class="input-select">
-                    <mat-select formControlName="productId" placeholder="Seleccione el tipo">
+                    <mat-select formControlName="productId" placeholder="Seleccione el tipo" #productValue (selectionChange)="onProductSelect(productValue.value, i)">
                       <mat-option *ngFor="let type of products()" [value]="type.productId">
                         {{type.name}}
                       </mat-option>
@@ -74,7 +74,7 @@
               </div>
 
               <div class="form-row">
-                <div class="input-group full-width">
+                <div class="input-group">
                   <label>Fecha de Compra</label>
                   <div class="input-with-datepicker">
                     <input type="text" class="input" formControlName="purchaseDate" [matDatepicker]="picker"
@@ -82,6 +82,10 @@
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </div>
+                </div>
+                <div class="input-group">
+                  <label>Precio</label>
+                  <input type="number" formControlName="price" class="input" step="0.01" min="0">
                 </div>
               </div>
 
