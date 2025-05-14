@@ -143,7 +143,7 @@ export class PurchasesComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (d) => {
-          this.purchases.set(d.content)
+          this.purchases.set(d.data.content)
         },
         error: (e) => {
           this._alert.error(e.error.message)

@@ -21,7 +21,7 @@ export class PurchasesService extends RepoService<Purchases> {
   }
 
   getPurchasesByFilters(sort:string, page: number, size: number, name: string, searchBy: string){
-    return this.httpClient.get<PaginatorResponse<any>>(this.fullUrl, {
+    return this.httpClient.get<Response<PaginatorResponse<any>>>(this.fullUrl, {
       params: {
         sort,
         page,
