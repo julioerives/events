@@ -111,7 +111,7 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
       productId: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(0.01)]],
       description: ['', Validators.maxLength(255)],
-      date: [this.today, Validators.required]
+      purchaseDate: [this.today, Validators.required]
     });
   }
 

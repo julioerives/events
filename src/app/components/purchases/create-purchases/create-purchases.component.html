@@ -48,8 +48,8 @@
           <div [formGroupName]="i" class="purchase-card-content">
             <div class="purchase-card-header">
               <h3>Producto #{{i + 1}}</h3>
-              <button type="button" matTooltip="Eliminar producto" class="btn btn-icon danger" (click)="removePurchase(i)"
-                *ngIf="purchasesArray.length > 1">
+              <button type="button" matTooltip="Eliminar producto" class="btn btn-icon danger"
+                (click)="removePurchase(i)" *ngIf="purchasesArray.length > 1">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
@@ -77,11 +77,8 @@
                 <div class="input-group full-width">
                   <label>Fecha de Compra</label>
                   <div class="input-with-datepicker">
-                    <input type="text" 
-                           class="input"
-                           formControlName="date"
-                           [matDatepicker]="picker"
-                           placeholder="Seleccione fecha">
+                    <input type="text" class="input" formControlName="purchaseDate" [matDatepicker]="picker"
+                      placeholder="Seleccione fecha">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </div>
