@@ -85,18 +85,18 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
   private updateComputedValues(): void {
     const itemsCount = this.purchasesArray.length;
     this.totalItems.set(itemsCount);
-  
+
     const productsCache = new Map(
       this.products().map(p => [p.productId, p.price])
     );
-  
+
     const amount = this.purchasesArray.controls.reduce((sum, control) => {
       const productId = control.get('productId')?.value;
       const quantity = control.get('quantity')?.value || 0;
       const price = productsCache.get(productId) || 0;
       return sum + (price * quantity);
     }, 0);
-  
+
     this.totalAmount.set(amount);
     this.averagePerItem.set(itemsCount > 0 ? amount / itemsCount : 0);
   }
@@ -148,7 +148,8 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
     }
   }
 
-  onProductSelect(productId: number, i: number){
+  onProductSelect(productId: number, i: number) {
+    if(!productId) return;
     const product = this.products().find(p => p.productId === productId)
     const control = this.purchasesArray.at(i)
     const newValue = (control.get('quantity')?.value as number) * (product?.price || 0)
@@ -162,8 +163,8 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const purchasesData: MultiplePurchases ={
-      items:  this.purchaseForm.value.purchases
+    const purchasesData: MultiplePurchases = {
+      items: this.purchaseForm.value.purchases
     };
 
     this.isLoading = true;
