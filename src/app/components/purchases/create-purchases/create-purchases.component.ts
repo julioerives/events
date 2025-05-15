@@ -149,7 +149,7 @@ export class CreatePurchasesComponent implements OnInit, OnDestroy {
   }
 
   onProductSelect(productId: number, i: number) {
-    if(!productId) return;
+    if (!productId) return;
     const product = this.products().find(p => p.productId === productId)
     const control = this.purchasesArray.at(i)
     const newValue = (control.get('quantity')?.value as number) * (product?.price || 0)

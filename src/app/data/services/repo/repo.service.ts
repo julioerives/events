@@ -39,7 +39,7 @@ export abstract class RepoService<T> {
     return this.httpClient.patch<Response<never>>(`${this.fullUrl}/${id}`, null);
   }
 
-  getAllByPage(page: number, size: number):Observable<Response<PaginatorResponse<T>>> {
+  getAllByPage(page: number, size: number): Observable<Response<PaginatorResponse<T>>> {
     return this.httpClient.get<Response<PaginatorResponse<T>>>(`${this.fullUrl}`, {
       params: {
         page,

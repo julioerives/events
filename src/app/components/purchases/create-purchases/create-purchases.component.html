@@ -59,7 +59,8 @@
                 <div class="input-group">
                   <label>Tipo de Producto</label>
                   <div class="input-select">
-                    <mat-select formControlName="productId" placeholder="Seleccione el tipo" #productValue (selectionChange)="onProductSelect(productValue.value, i)">
+                    <mat-select formControlName="productId" placeholder="Seleccione el tipo" #productValue
+                      (selectionChange)="onProductSelect(productValue.value, i)">
                       <mat-option *ngFor="let type of products()" [value]="type.productId">
                         {{type.name}}
                       </mat-option>
@@ -69,7 +70,8 @@
 
                 <div class="input-group">
                   <label>Cantidad</label>
-                  <input type="number" formControlName="quantity" class="input" step="0.01" min="0" (blur)="onProductSelect(purchase.value.productId, i)">
+                  <input type="number" formControlName="quantity" class="input" step="0.01" min="0"
+                    (blur)="onProductSelect(purchase.value.productId, i)">
                 </div>
               </div>
 
@@ -85,7 +87,7 @@
                 </div>
                 <div class="input-group">
                   <label>Precio</label>
-                  <input type="number" formControlName="price" class="input" step="0.01" min="0" >
+                  <input type="number" formControlName="price" class="input" step="0.01" min="0">
                 </div>
               </div>
 

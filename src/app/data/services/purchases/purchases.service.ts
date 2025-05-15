@@ -16,11 +16,11 @@ export class PurchasesService extends RepoService<Purchases> {
     super(client, "purchases")
   }
 
-  createMultiple(data: MultiplePurchases): Observable<Response<MultiplePurchases>>{
+  createMultiple(data: MultiplePurchases): Observable<Response<MultiplePurchases>> {
     return this.httpClient.post<Response<MultiplePurchases>>(`${this.fullUrl}/multiple`, data)
   }
 
-  getPurchasesByFilters(sort:string, page: number, size: number, name: string, searchBy: string){
+  getPurchasesByFilters(sort: string, page: number, size: number, name: string, searchBy: string) {
     return this.httpClient.get<Response<PaginatorResponse<any>>>(this.fullUrl, {
       params: {
         sort,

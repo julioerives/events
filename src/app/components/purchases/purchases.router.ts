@@ -4,9 +4,9 @@ import { CreatePurchasesComponent } from "./create-purchases/create-purchases.co
 
 export const routes: Routes = [
     {
-        path:'', component:PurchasesComponent
+        path: '', component: PurchasesComponent
     },
     {
-        path:'createPurchase', component:CreatePurchasesComponent
+        path: 'createPurchase', component: CreatePurchasesComponent
     }
 ];
