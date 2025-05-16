@@ -10,13 +10,29 @@
 
     <ul class="sidebar-menu">
         @for (item of menuItems; track item.text) {
-        <li [class.active]="item.active" [class.has-badge]="item.badge" (click)="activateItem(item)">
+        <li [class.active]="item.active" [class.has-badge]="item.badge" [class.has-submenu]="item.submenu"
+            [class.submenu-open]="item.submenuOpen" (click)="!item.submenu ? activateItem(item) : toggleSubmenu(item)">
+            
             <mat-icon class="menu-icon">{{ item.icon }}</mat-icon>
             @if (!isCollapsed) {
             <span class="menu-text">{{ item.text }}</span>
             }
             @if (!isCollapsed && item.badge) {
             <span class="badge">{{ item.badge }}</span>
+            }
+            @if (item.submenu && !isCollapsed) {
+            <mat-icon class="submenu-icon">{{ item.submenuOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+            }
+
+            @if (item.submenu && item.submenuOpen && !isCollapsed) {
+            <ul class="submenu">
+                @for (subItem of item.submenu; track subItem.text) {
+                <li [class.active]="subItem.active" (click)="$event.stopPropagation(); activateSubItem(item, subItem)">
+                    <mat-icon class="submenu-icon">{{ subItem.icon }}</mat-icon>
+                    <span class="submenu-text">{{ subItem.text }}</span>
+                </li>
+                }
+            </ul>
             }
         </li>
         }
@@ -26,7 +42,7 @@
     <div class="sidebar-footer">
         <div class="user-info">
             <p>Usuario Actual</p>
-            <small>Administrador</small>
+            <!-- <small>Administrador</small> -->
         </div>
         @if (!isCollapsed) {
         <button class="logout-btn">
@@ -34,7 +50,6 @@
             <span>Cerrar sesión</span>
         </button>
         }
-
     </div>
     }
 </div>

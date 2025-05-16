@@ -213,3 +213,55 @@
 .darkBackground{
   filter: brightness(.2);
 }
+.sidebar-menu li.has-submenu {
+  flex-wrap: wrap;
+}
+
+.submenu-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.submenu {
+  list-style: none;
+  padding: 0;
+  width: 100% !important;
+  margin-top: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.submenu li {
+  width: 100% !important;
+  padding: 0.6rem 1rem 0.6rem 2.5rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submenu li:hover {
+  background-color: rgba(220, 224, 230, 0.1);
+}
+
+.submenu li.active {
+  background-color: rgba(var(--secondary-color), 0.3);
+}
+
+.submenu-icon {
+  font-size: 1.1rem;
+}
+
+.submenu-text {
+  font-size: 0.85rem;
+}
+
+.sidebar.collapsed .submenu {
+  display: none;
+}
