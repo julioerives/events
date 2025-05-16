@@ -172,10 +172,12 @@ export class PurchasesComponent implements OnInit, OnDestroy {
 
   setSort(sortType: string) {
     this.sortBy = sortType;
+    this.getPurchases()
   }
 
   setSearch(searchBy: string) {
     this.searchBy = searchBy;
+    this.getPurchases()
   }
 
   filterByType(typeId: number) {
