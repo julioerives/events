@@ -56,7 +56,7 @@ export class SidebarComponent implements OnInit {
       submenu: [
         {
           text: 'Productos',
-          path: 'dashboard/products',
+          path: 'dashboard/catalog/products',
           icon: 'inventory_2',
           active: false
         },

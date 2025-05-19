@@ -1,0 +1,31 @@
+/* Estilos para la tabla de Angular Material */
+.mat-table {
+  width: 100%;
+}
+
+/* Estilo para los badges de tipo de producto */
+.type-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+/* Ajustes para el paginador */
+.mat-paginator {
+  background: transparent;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los botones de acción */
+.mat-icon-button {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+}
+
+/* Ajuste para el input de búsqueda */
+.input-group {
+  max-width: 400px;
+}

@@ -3,12 +3,12 @@ export interface Products {
     productType: ProductType;
     price:       number;
     name:        string;
-    createdAt:   null;
+    createdAt?:   Date;
 }
 
 export interface ProductType {
     productTypeId: number;
     name:          string;
     description:   string;
-    colorRgba:     null;
+    colorRgba?:     string;
 }
