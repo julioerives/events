@@ -11,8 +11,9 @@
     <ul class="sidebar-menu">
         @for (item of menuItems; track item.text) {
         <li [class.active]="item.active" [class.has-badge]="item.badge" [class.has-submenu]="item.submenu"
-            [class.submenu-open]="item.submenuOpen" (click)="!item.submenu ? activateItem(item) : isCollapsed ? toggleSidebar(): toggleSubmenu(item)">
-            
+            [class.submenu-open]="item.submenuOpen"
+            (click)="!item.submenu ? activateItem(item) : isCollapsed ? toggleSidebar(): toggleSubmenu(item)">
+
             <mat-icon class="menu-icon">{{ item.icon }}</mat-icon>
             @if (!isCollapsed) {
             <span class="menu-text">{{ item.text }}</span>
