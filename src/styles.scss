@@ -780,18 +780,28 @@ body {
   padding: 1rem;
 }
 
-/* Estilos para la tabla personalizada */
 .custom-mat-table {
   width: 100%;
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
   background-color: white;
+  border: solid 1px var(--primary-color) !important;
 }
 
 .table-header-row {
   background-color: var(--primary-color);
   height: 26px;
   max-height: 26px;
+}
+
+.mat-mdc-header-row {
+  height: 40px !important;
+  max-height: 40px !important;
+}
+
+.mat-mdc-row, .mdc-data-table__content{
+  height: 35px !important;
+  max-height: 35px !important;
 }
 
 .table-header {
@@ -828,7 +838,6 @@ body {
   height: 100%;
 }
 
-/* Estilos para el paginador */
 .mat-paginator {
   background-color: white;
   border-bottom-left-radius: 8px;
@@ -836,7 +845,6 @@ body {
   border-top: 1px solid rgba(var(--medium-color), 0.1);
 }
 
-/* Estilos para las celdas cuando la tabla es responsive */
 @media (max-width: 768px) {
   .custom-mat-table {
     box-shadow: none;
