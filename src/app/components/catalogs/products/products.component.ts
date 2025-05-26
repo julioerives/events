@@ -6,6 +6,7 @@ import { Products, ProductType } from '../../../data/models/products/product.mod
 import { FormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
+import { HexToRgbaPipe } from '../../../pipes/HexToRgba/hex-to-rgba.pipe';
 
 export interface PeriodicElement {
   name: string;
@@ -36,7 +37,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     MatSelectModule,
     FormsModule,
     MatTableModule,
-    MatChipsModule
+    MatChipsModule,
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
