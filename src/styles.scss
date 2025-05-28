@@ -799,8 +799,8 @@ body {
 }
 
 .mat-mdc-row, .mdc-data-table__content{
-  height: 35px !important;
-  max-height: 35px !important;
+  height: 45px !important;
+  max-height: 45px !important;
 }
 
 .table-header {
@@ -853,6 +853,30 @@ body {
   width: 100%;
   border: solid 1px var(--primary-color) !important;
 
+}
+
+.product-type-chip {
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.input-table-cont{
+  width: 100%;
+  .input-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .input {
+    width: 40%;
+  }
 }
 
 @media (max-width: 768px) {

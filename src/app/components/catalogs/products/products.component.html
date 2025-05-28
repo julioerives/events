@@ -1,7 +1,4 @@
 <div class="container">
-
-
-
   <div class="container-card">
     <div class="stats-cards">
       <div class="stat-card">
@@ -38,7 +35,7 @@
   </div>
   <div class="container-card">
     <div class="input-table-cont">
-      <div class="input-group full-width">
+      <div class="input-group">
         <label>Descripción/Nombre de la compra</label>
         <input class="input" placeholder="Ej. Laptop Dell XPS 15" />
       </div>
@@ -56,7 +53,10 @@
         <ng-container matColumnDef="productType">
           <th mat-header-cell *matHeaderCellDef class="table-header"> Tipo de producto </th>
           <td mat-cell *matCellDef="let element" class="table-cell">
-            <span class="cell-content">{{element.name}}</span>
+            <span class="product-type-chip" [style.background]="element.productType.colorRgba + '10'"
+              [style.color]="element.productType.colorRgba">
+              {{element.productType.name}}
+            </span>
           </td>
         </ng-container>
 
