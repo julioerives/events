@@ -1,5 +1,5 @@
 .stat-card {
-    min-width: 300px;
+    min-width: 250px;
 }
 .avg-price {
     font-size: 1.2em;
@@ -9,4 +9,10 @@
 
 .stat-card {
     background-color: rgba($color: #2b4c7e, $alpha: .01);
+}
+
+.stats-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }

@@ -10,7 +10,7 @@
         <mat-icon class="stat-icon">shopping_cart</mat-icon>
       </div>
       <div class="stat-card" [style.background]="'rgba(100, 149, 237, .01)'">
-        <div class="stat-value" [style.color]="'rgba(100, 149, 237, 1)'" >1</div>
+        <div class="stat-value" [style.color]="'rgba(100, 149, 237, 1)'">1</div>
         <div class="stat-label" [style.color]="'rgba(100, 149, 237, .6)'">Promedio de precio productos</div>
         <mat-icon class="stat-icon" [style.color]="'rgba(100, 149, 237, 1)'">percent</mat-icon>
       </div>
@@ -19,7 +19,7 @@
         <div class="stat-label" [style.color]="'rgba(255, 0, 0, 6)'">Producto mas caro</div>
         <mat-icon class="stat-icon" [style.color]="'rgba(255, 0, 0,1)'">diamond</mat-icon>
       </div>
-      <div class="stat-card"  [style.background]="'rgba(40, 167, 69, .01)'">
+      <div class="stat-card" [style.background]="'rgba(40, 167, 69, .01)'">
         <div class="stat-value" [style.color]="'rgba(40, 167, 69, 1) '">1</div>
         <div class="stat-label" [style.color]="'rgba(40, 167, 69, .6) '">Producto mas comprado</div>
         <mat-icon class="stat-icon" [style.color]="'rgba(40, 167, 69, 1) '">trending_up</mat-icon>
@@ -37,42 +37,48 @@
     </div>
   </div>
   <div class="container-card">
-    <table mat-table [dataSource]="dataSource" class="custom-mat-table mat-elevation-z4">
+    <div class="input-table-cont">
+      <div class="input-group full-width">
+        <label>Descripción/Nombre de la compra</label>
+        <input class="input" placeholder="Ej. Laptop Dell XPS 15" />
+      </div>
+    </div>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" class="custom-mat-table mat-elevation-z4">
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef class="table-header"> No. </th>
-        <td mat-cell *matCellDef="let element" class="table-cell">
-          <span class="cell-content">{{element.position}}</span>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="table-header"> Nombre </th>
+          <td mat-cell *matCellDef="let element" class="table-cell">
+            <span class="cell-content">{{element.name}}</span>
+          </td>
+        </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef class="table-header"> Nombre </th>
-        <td mat-cell *matCellDef="let element" class="table-cell">
-          <span class="cell-content">{{element.name}}</span>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="productType">
+          <th mat-header-cell *matHeaderCellDef class="table-header"> Tipo de producto </th>
+          <td mat-cell *matCellDef="let element" class="table-cell">
+            <span class="cell-content">{{element.name}}</span>
+          </td>
+        </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef class="table-header"> Peso </th>
-        <td mat-cell *matCellDef="let element" class="table-cell">
-          <span class="cell-content">{{element.weight}}</span>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef class="table-header"> Precio </th>
+          <td mat-cell *matCellDef="let element" class="table-cell">
+            <span class="cell-content">{{element.name}}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="table-header"> Acciones </th>
+          <td mat-cell *matCellDef="let element" class="table-cell">
+            <span class="cell-content">{{element.name}}</span>
+          </td>
+        </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef class="table-header"> Símbolo </th>
-        <td mat-cell *matCellDef="let element" class="table-cell">
-          <span class="cell-content">{{element.symbol}}</span>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header-row"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header-row"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+      </table>
+      <mat-paginator [length]="100" class="mat-paginator" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page">
+      </mat-paginator>
+    </div>
   </div>
 </div>
