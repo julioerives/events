@@ -10,5 +10,5 @@ export class ProductsService extends RepoService<Products> {
 
   constructor(private client: HttpClient) {
     super(client, 'products')
-   }
+  }
 }

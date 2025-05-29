@@ -5,9 +5,17 @@ export interface Response<T> {
 }
 
 export interface PaginatorResponse<T> {
-    content:       T[];
-    pageNumber:    number;
-    pageSize:      number;
+    content: T[];
+    pagination: Pagination;
+
+}
+export interface Pagination {
+    currentPage: number;
+    pageSize: number;
     totalElements: number;
-    totalPages:    number;
+    totalPages: number;
+    hasNext: boolean;
+    hasPrevious: boolean;
+    first: boolean;
+    last: boolean;
 }

@@ -48,7 +48,7 @@ export abstract class RepoService<T> {
     });
   }
   getAllByPageAndFilter(page: number, size: number, name: string) {
-    return this.httpClient.get<Response<T[]>>(`${this.fullUrl}`, {
+    return this.httpClient.get<Response<PaginatorResponse<T>>>(`${this.fullUrl}/page`, {
       params: {
         page,
         size,
