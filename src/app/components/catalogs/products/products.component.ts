@@ -13,6 +13,7 @@ import { ProductsService } from '../../../data/services/products/products.servic
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertsService } from '../../../core/alerts/alerts.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { LightColorPipe } from '../../../pipes/colors/lightColor/light-color.pipe';
 
 @Component({
   selector: 'app-products',
@@ -24,7 +25,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatTableModule,
     MatChipsModule,
     MatPaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LightColorPipe
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
@@ -51,6 +53,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProducts()
+    this.getAllStats()
     this.listenInputSearch()
   }
 
@@ -84,6 +87,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
         error: (e) => {
           this.changeDataTable([])
           this._alert.error(e?.error?.message)
+        }
+      })
+
+  }
+
+
+  getAllStats() {
+    this._productsService.getProductStats()
+      .pipe(
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: d => {
+          console.log("🚀 ~ ProductsComponent ~ getAllStats ~ d:", d)
         }
       })
   }
