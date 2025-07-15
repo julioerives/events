@@ -7,17 +7,17 @@
         <mat-icon class="stat-icon">shopping_cart</mat-icon>
       </div>
       <div class="stat-card" [style.background]="'rgba(100, 149, 237, .01)'">
-        <div class="stat-value" [style.color]="'rgba(100, 149, 237, 1)'">1</div>
+        <div class="stat-value" [style.color]="'rgba(100, 149, 237, 1)'">{{productsStats()?.priceStatsProjection?.averagePrice}}</div>
         <div class="stat-label" [style.color]="'rgba(100, 149, 237, .6)'">Promedio de precio productos</div>
         <mat-icon class="stat-icon" [style.color]="'rgba(100, 149, 237, 1)'">percent</mat-icon>
       </div>
       <div class="stat-card" [style.background]="'rgba(255, 0, 0, .01)'">
-        <div class="stat-value" [style.color]="'rgba(255, 0, 0, 1)'">1</div>
+        <div class="stat-value" [style.color]="'rgba(255, 0, 0, 1)'">{{productsStats()?.priceStatsProjection?.mostExpensive}}</div>
         <div class="stat-label" [style.color]="'rgba(255, 0, 0, 6)'">Producto mas caro</div>
         <mat-icon class="stat-icon" [style.color]="'rgba(255, 0, 0,1)'">diamond</mat-icon>
       </div>
       <div class="stat-card" [style.background]="'rgba(40, 167, 69, .01)'">
-        <div class="stat-value" [style.color]="'rgba(40, 167, 69, 1) '">1</div>
+        <div class="stat-value" [style.color]="'rgba(40, 167, 69, 1) '">{{productsStats()?.mostBoughtProductProjection?.name+": "+ productsStats()?.mostBoughtProductProjection?.totalProduct}}</div>
         <div class="stat-label" [style.color]="'rgba(40, 167, 69, .6) '">Producto mas comprado</div>
         <mat-icon class="stat-icon" [style.color]="'rgba(40, 167, 69, 1) '">trending_up</mat-icon>
       </div>

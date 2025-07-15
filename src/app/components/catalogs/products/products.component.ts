@@ -14,6 +14,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertsService } from '../../../core/alerts/alerts.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LightColorPipe } from '../../../pipes/colors/lightColor/light-color.pipe';
+import { ProductStats } from '../../../data/models/products/productStats.model';
 
 @Component({
   selector: 'app-products',
@@ -43,6 +44,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   public name: string = ''
 
   products = signal<Products[]>([])
+
+  productsStats = signal<ProductStats | null>(null);
   public dataSource: MatTableDataSource<Products> = new MatTableDataSource<Products>(this.products());
 
   private destroy$ = new Subject<void>();
@@ -100,7 +103,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: d => {
-          console.log("🚀 ~ ProductsComponent ~ getAllStats ~ d:", d)
+          this.productsStats.set(d.data)
         }
       })
   }
