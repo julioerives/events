@@ -119,7 +119,7 @@ export class EventsModalComponent implements OnInit, OnDestroy {
     if(!this.form.valid) return;
     this._loadingService.showLoading();
     const event = this.form.value as Event;
-    if(this.data.eventId){
+    if(this?.data?.eventId){
       this.updateData(event);
     }else{
       this.postData(event);

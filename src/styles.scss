@@ -372,22 +372,31 @@ body {
 }
 
 .modal {
-  background-color: white;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 
   .modal-header {
-    padding: 1.5rem;
-    border-bottom: 1px solid rgba(var(--medium-color), 0.1);
+    padding: 2px;
+    border-bottom: 1px solid lightgrey !important ;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .dialogClose {
+      position: absolute !important;
+      right: 2px !important;
+      top: 2px !important;
+      padding: 12px !important;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
+      &:hover {
+        background-color: rgba(211, 211, 211, 0.252);
+        border-radius: 100%;
+      }
+    }
     .modal-title {
+      width: 100%;
+      text-align: center;
       margin: 0;
       color: var(--primary-color);
       font-size: 1.5rem;
@@ -418,6 +427,15 @@ body {
     justify-content: flex-end;
     gap: 0.5rem;
   }
+  .modal-actions {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid lightgrey !important ;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 }
 
 /* ============ UTILIDADES ============ */
@@ -664,6 +682,10 @@ body {
       background: rgba(255, 255, 255, 0.3);
     }
   }
+}
+
+.mat-mdc-dialog-surface {
+  border-radius: 10px !important;
 }
 
 .success-snackbar {
@@ -920,4 +942,10 @@ body {
     justify-content: flex-end;
     text-align: right;
   }
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
 }

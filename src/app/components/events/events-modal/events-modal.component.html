@@ -1,6 +1,12 @@
-<h2 mat-dialog-title class="modal-title">
+<div class="modal">
+  <div class="modal-header">
+  <h2 mat-dialog-title class="modal-title">
   {{ isEditMode ? 'Editar Evento' : 'Crear Nuevo Evento' }}
 </h2>
+<div class="dialogClose">
+  <mat-icon class="dialogCloseIcon" mat-dialog-close>close</mat-icon>
+</div>
+</div>
 
 <mat-dialog-content class="modal-content">
   <form [formGroup]="form" class="event-form">
@@ -77,10 +83,8 @@
     </div>
   </form>
 </mat-dialog-content>
-
-<mat-dialog-actions align="end" class="modal-actions">
-  <button mat-button class="btn btn-outline" (click)="onCancel()">Cancelar</button>
-  <button mat-button class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">
-    {{ isEditMode ? 'Actualizar' : 'Guardar' }}
-  </button>
-</mat-dialog-actions>
+  <div class="modal-actions">
+    <button class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">Guardar</button>
+    <button class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+  </div>
+</div>

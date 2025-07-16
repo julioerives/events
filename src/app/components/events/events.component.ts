@@ -102,12 +102,13 @@ export class EventsComponent implements OnInit, OnDestroy {
     const dialogRef = this._dialog.open(EventsModalComponent, {
       disableClose: true,
       width: '600px',
-      data: event
+      data: event,
+      panelClass: "custom-dialog"
     })
     .afterClosed()
     .pipe(takeUntil(this.destroy$))
     .subscribe((result) => {
-      if (result) { 
+      if (result) {
         this.getEvents();
       }
     });
