@@ -70,7 +70,7 @@ export class ProductsModalComponent implements OnInit, OnDestroy {
     this.isEditMode = !!this.data?.productId;
 
     this.form = this.fb.group({
-      productId: [this.data?.productId, Validators.required],
+      productId: [this.data?.productId],
       typeProductId: [this.data?.productType?.productTypeId, Validators.required],
       name: [this.data?.name, Validators.required],
       price: [this.data?.price, [Validators.required, Validators.min(0)]],
@@ -137,7 +137,10 @@ export class ProductsModalComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.isSend = true;
-    if (!this.form.valid) return;
+    if (!this.form.valid){
+      this._alertService.info("Formulario invalido")
+      return
+    };
     this._loadingService.showLoading();
     const product = this.form.value as Products;
     if (this?.data?.productId) {
