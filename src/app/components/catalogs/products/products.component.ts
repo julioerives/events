@@ -15,6 +15,8 @@ import { AlertsService } from '../../../core/alerts/alerts.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LightColorPipe } from '../../../pipes/colors/lightColor/light-color.pipe';
 import { ProductStats } from '../../../data/models/products/productStats.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ProductsModalComponent } from './products-modal/products-modal.component';
 
 @Component({
   selector: 'app-products',
@@ -53,6 +55,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   private _productsService = inject(ProductsService);
   private _alert = inject(AlertsService);
+  private _dialog: MatDialog = inject(MatDialog);
+
 
   ngOnInit(): void {
     this.getProducts()
@@ -108,7 +112,22 @@ export class ProductsComponent implements OnInit, OnDestroy {
       })
   }
 
-  openDialog(){}
+  openDialog(Products?: Products): void {
+    const dialogRef = this._dialog.open(ProductsModalComponent, {
+      disableClose: true,
+      width: '600px',
+      data: event,
+      panelClass: "custom-dialog"
+    })
+    .afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((result) => {
+      if (result) {
+        this.getProducts();
+      }
+    });
+
+  }
 
   changeDataTable(data: Products[]) {
     this.products.set(data)
