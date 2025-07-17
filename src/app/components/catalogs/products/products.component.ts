@@ -108,6 +108,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
       })
   }
 
+  openDialog(){}
+
   changeDataTable(data: Products[]) {
     this.products.set(data)
     this.dataSource.data = this.products()

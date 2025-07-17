@@ -16,4 +16,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    background-color: var(--white-color) !important;
+}
+
+.btn{
+    border: solid .5px var(--dark-color);
 }

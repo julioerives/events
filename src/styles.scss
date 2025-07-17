@@ -375,10 +375,11 @@ body {
 
   .modal-header {
     padding: 2px;
-    border-bottom: 1px solid lightgrey !important ;
+    border-bottom: 1px solid lightgrey !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .dialogClose {
       position: absolute !important;
       right: 2px !important;
@@ -394,6 +395,7 @@ body {
         border-radius: 100%;
       }
     }
+
     .modal-title {
       width: 100%;
       text-align: center;
@@ -427,15 +429,16 @@ body {
     justify-content: flex-end;
     gap: 0.5rem;
   }
+
   .modal-actions {
-  padding: 1rem 1.5rem;
-  border-top: 1px solid lightgrey !important ;
-  gap: 0.5rem;
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
+    padding: 1rem 1.5rem;
+    border-top: 1px solid lightgrey !important;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 /* ============ UTILIDADES ============ */
@@ -820,7 +823,8 @@ body {
   max-height: 40px !important;
 }
 
-.mat-mdc-row, .mdc-data-table__content{
+.mat-mdc-row,
+.mdc-data-table__content {
   height: 45px !important;
   max-height: 45px !important;
 }
@@ -891,15 +895,28 @@ body {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.input-table-cont{
-  width: 100%;
+.input-table-cont {
+  width: 50%;
+
   .input-group {
     display: flex;
     flex-direction: column;
   }
+
   .input {
-    width: 40%;
+    width: 90%;
   }
+}
+
+.flx-between {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: space-between;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
