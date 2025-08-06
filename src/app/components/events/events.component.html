@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" #scrollContainer>
   <div class="header-cont">
     <div class="btns-cont">
       <button class="btn" (click)="openDialog()">
@@ -10,5 +10,11 @@
     @for (item of events(); track $index) {
     <app-event-card [event]="item" (idEvent)="deleteEventConfirm($event)"  [showActions]="true" (eventUpdated)="openDialog($event)"></app-event-card>
     }
+    <!-- {{hasNextValue()}} -->
+    @if (isLoading() && hasNextValue()) {
+      <div class="w100">
+        <app-loading-small-component  ></app-loading-small-component>
+      </div>
+        }
   </div>
 </div>
