@@ -10,7 +10,7 @@ import { EventsService } from '../../data/services/events/events.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { EventCardComponent } from './event-card/event-card.component';
 import { AlertsService } from '../../core/alerts/alerts.service';
-import { DialogConfirmComponent } from '../dialogs/dialog-confirm/dialog-confirm.component';
+import { DialogConfirmComponent } from '../../shared/dialog-confirm/dialog-confirm.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingSmallComponentComponent } from "../../shared/loading-small-component/loading-small-component.component";
 
