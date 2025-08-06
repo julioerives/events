@@ -6,7 +6,7 @@ import { Products, ProductType } from '../../../data/models/products/product.mod
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
-import { HexToRgbaPipe } from '../../../pipes/HexToRgba/hex-to-rgba.pipe';
+import { HexToRgbaPipe } from '../../../pipes/colors/HexToRgba/hex-to-rgba.pipe';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { ProductsService } from '../../../data/services/products/products.service';

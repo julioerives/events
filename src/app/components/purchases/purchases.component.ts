@@ -16,7 +16,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { HexToRgbaPipe } from '../../pipes/HexToRgba/hex-to-rgba.pipe';
+import { HexToRgbaPipe } from '../../pipes/colors/HexToRgba/hex-to-rgba.pipe';
 import { Purchases } from '../../data/models/purchases/purchases.model';
 import { Subject, takeUntil } from 'rxjs';
 import { PurchasesService } from '../../data/services/purchases/purchases.service';
